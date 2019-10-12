@@ -33410,6 +33410,42 @@ Key.prototype.verifyAllUsers = async function (keys) {
 };
 
 /**
+ * Generates a new OpenPGP subkey, and returns a clone of the Key object with the new subkey added.
+ * Supports RSA and ECC keys. Defaults to the algorithm and bit size/curve of the primary key.
+ * @param {Integer} options.rsaBits    number of bits for the key creation.
+ * @param {Number} [options.keyExpirationTime=0]
+ *                             The number of seconds after the key creation time that the key expires
+ * @param {String} curve       (optional) Elliptic curve for ECC keys
+ * @param {Date} date          (optional) Override the creation date of the key and the key signatures
+ * @param {Boolean} subkeys    (optional) Indicates whether the subkey should sign rather than encrypt. Defaults to false
+ * @returns {Promise<module:key.Key>}
+ * @async
+ */
+Key.prototype.addSubkey = async function (options = {}) {
+  if (!this.isPrivate()) {
+    throw new Error("Cannot add a subkey to a public key");
+  }
+  if (options.passphrase) {
+    throw new Error("Subkey could not be encrypted here, please encrypt whole key");
+  }
+  if (_util2.default.getWebCryptoAll() && options.rsaBits < 2048) {
+    throw new Error('When using webCrypto rsaBits should be 2048 or 4096, found: ' + options.rsaBits);
+  }
+  const secretKeyPacket = this.primaryKey;
+  if (!secretKeyPacket.isDecrypted()) {
+    throw new Error("Key is not decrypted");
+  }
+  const defaultOptions = secretKeyPacket.getAlgorithmInfo();
+  options = sanitizeKeyOptions(options, defaultOptions);
+  const keyPacket = await generateSecretSubkey(options);
+  const bindingSignature = await createBindingSignature(keyPacket, secretKeyPacket, options);
+  const packetList = this.toPacketlist();
+  packetList.push(keyPacket);
+  packetList.push(bindingSignature);
+  return new Key(packetList);
+};
+
+/**
  * @class
  * @classdesc Class that represents an user ID or attribute packet and the relevant signatures.
  */
@@ -33878,7 +33914,7 @@ async function readArmored(armoredText) {
  * @param {module:enums.publicKey} [options.keyType=module:enums.publicKey.rsa_encrypt_sign]
  *                             To indicate what type of key to make.
  *                             RSA is 1. See {@link https://tools.ietf.org/html/rfc4880#section-9.1}
- * @param {Integer} options.numBits    number of bits for the key creation.
+ * @param {Integer} options.rsaBits    number of bits for the key creation.
  * @param {String|Array<String>}  options.userIds
  *                             Assumes already in form of "User Name <username@email.com>"
  *                             If array is used, the first userId is set as primary user Id
@@ -33903,53 +33939,53 @@ async function generate(options) {
   let promises = [generateSecretKey(options)];
   promises = promises.concat(options.subkeys.map(generateSecretSubkey));
   return Promise.all(promises).then(packets => wrapKeyObject(packets[0], packets.slice(1), options));
+}
 
-  function sanitizeKeyOptions(options, subkeyDefaults = {}) {
-    options.curve = options.curve || subkeyDefaults.curve;
-    options.numBits = options.numBits || subkeyDefaults.numBits;
-    options.keyExpirationTime = options.keyExpirationTime !== undefined ? options.keyExpirationTime : subkeyDefaults.keyExpirationTime;
-    options.passphrase = _util2.default.isString(options.passphrase) ? options.passphrase : subkeyDefaults.passphrase;
-    options.date = options.date || subkeyDefaults.date;
+function sanitizeKeyOptions(options, subkeyDefaults = {}) {
+  options.curve = options.curve || subkeyDefaults.curve;
+  options.rsaBits = options.rsaBits || subkeyDefaults.rsaBits;
+  options.keyExpirationTime = options.keyExpirationTime !== undefined ? options.keyExpirationTime : subkeyDefaults.keyExpirationTime;
+  options.passphrase = _util2.default.isString(options.passphrase) ? options.passphrase : subkeyDefaults.passphrase;
+  options.date = options.date || subkeyDefaults.date;
 
-    options.sign = options.sign || false;
+  options.sign = options.sign || false;
 
-    if (options.curve) {
-      try {
-        options.curve = _enums2.default.write(_enums2.default.curve, options.curve);
-      } catch (e) {
-        throw new Error('Not valid curve.');
-      }
-      if (options.curve === _enums2.default.curve.ed25519 || options.curve === _enums2.default.curve.curve25519) {
-        options.curve = options.sign ? _enums2.default.curve.ed25519 : _enums2.default.curve.curve25519;
-      }
-      if (options.sign) {
-        options.algorithm = options.curve === _enums2.default.curve.ed25519 ? _enums2.default.publicKey.eddsa : _enums2.default.publicKey.ecdsa;
-      } else {
-        options.algorithm = _enums2.default.publicKey.ecdh;
-      }
-    } else if (options.numBits) {
-      options.algorithm = _enums2.default.publicKey.rsa_encrypt_sign;
-    } else {
-      throw new Error('Unrecognized key type');
+  if (options.curve) {
+    try {
+      options.curve = _enums2.default.write(_enums2.default.curve, options.curve);
+    } catch (e) {
+      throw new Error('Not valid curve.');
     }
-    return options;
+    if (options.curve === _enums2.default.curve.ed25519 || options.curve === _enums2.default.curve.curve25519) {
+      options.curve = options.sign ? _enums2.default.curve.ed25519 : _enums2.default.curve.curve25519;
+    }
+    if (options.sign) {
+      options.algorithm = options.curve === _enums2.default.curve.ed25519 ? _enums2.default.publicKey.eddsa : _enums2.default.publicKey.ecdsa;
+    } else {
+      options.algorithm = _enums2.default.publicKey.ecdh;
+    }
+  } else if (options.rsaBits) {
+    options.algorithm = _enums2.default.publicKey.rsa_encrypt_sign;
+  } else {
+    throw new Error('Unrecognized key type');
   }
+  return options;
+}
 
-  async function generateSecretKey(options) {
-    const secretKeyPacket = new _packet2.default.SecretKey(options.date);
-    secretKeyPacket.packets = null;
-    secretKeyPacket.algorithm = _enums2.default.read(_enums2.default.publicKey, options.algorithm);
-    await secretKeyPacket.generate(options.numBits, options.curve);
-    return secretKeyPacket;
-  }
+async function generateSecretKey(options) {
+  const secretKeyPacket = new _packet2.default.SecretKey(options.date);
+  secretKeyPacket.packets = null;
+  secretKeyPacket.algorithm = _enums2.default.read(_enums2.default.publicKey, options.algorithm);
+  await secretKeyPacket.generate(options.rsaBits, options.curve);
+  return secretKeyPacket;
+}
 
-  async function generateSecretSubkey(options) {
-    const secretSubkeyPacket = new _packet2.default.SecretSubkey(options.date);
-    secretSubkeyPacket.packets = null;
-    secretSubkeyPacket.algorithm = _enums2.default.read(_enums2.default.publicKey, options.algorithm);
-    await secretSubkeyPacket.generate(options.numBits, options.curve);
-    return secretSubkeyPacket;
-  }
+async function generateSecretSubkey(options) {
+  const secretSubkeyPacket = new _packet2.default.SecretSubkey(options.date);
+  secretSubkeyPacket.packets = null;
+  secretSubkeyPacket.algorithm = _enums2.default.read(_enums2.default.publicKey, options.algorithm);
+  await secretSubkeyPacket.generate(options.rsaBits, options.curve);
+  return secretSubkeyPacket;
 }
 
 /**
@@ -34106,27 +34142,7 @@ async function wrapKeyObject(secretKeyPacket, secretSubkeyPackets, options) {
 
   await Promise.all(secretSubkeyPackets.map(async function (secretSubkeyPacket, index) {
     const subkeyOptions = options.subkeys[index];
-    const dataToSign = {};
-    dataToSign.key = secretKeyPacket;
-    dataToSign.bind = secretSubkeyPacket;
-    const subkeySignaturePacket = new _packet2.default.Signature(subkeyOptions.date);
-    subkeySignaturePacket.signatureType = _enums2.default.signature.subkey_binding;
-    subkeySignaturePacket.publicKeyAlgorithm = secretKeyPacket.algorithm;
-    subkeySignaturePacket.hashAlgorithm = await getPreferredHashAlgo(null, secretSubkeyPacket);
-    if (subkeyOptions.sign) {
-      subkeySignaturePacket.keyFlags = [_enums2.default.keyFlags.sign_data];
-      subkeySignaturePacket.embeddedSignature = await createSignaturePacket(dataToSign, null, secretSubkeyPacket, {
-        signatureType: _enums2.default.signature.key_binding
-      }, subkeyOptions.date);
-    } else {
-      subkeySignaturePacket.keyFlags = [_enums2.default.keyFlags.encrypt_communication | _enums2.default.keyFlags.encrypt_storage];
-    }
-    if (subkeyOptions.keyExpirationTime > 0) {
-      subkeySignaturePacket.keyExpirationTime = subkeyOptions.keyExpirationTime;
-      subkeySignaturePacket.keyNeverExpires = false;
-    }
-    await subkeySignaturePacket.sign(secretKeyPacket, dataToSign);
-
+    const subkeySignaturePacket = await createBindingSignature(secretSubkeyPacket, secretKeyPacket, subkeyOptions);
     return { secretSubkeyPacket, subkeySignaturePacket };
   })).then(packets => {
     packets.forEach(({ secretSubkeyPacket, subkeySignaturePacket }) => {
@@ -34157,6 +34173,37 @@ async function wrapKeyObject(secretKeyPacket, secretSubkeyPackets, options) {
   }));
 
   return new Key(packetlist);
+}
+
+/**
+ * Create subkey binding signature
+ * @see {@link https://tools.ietf.org/html/rfc4880#section-5.2.1|RFC4880 Section 5.2.1}
+ * @param {module:packet.SecretSubkey} subkey Subkey key packet
+ * @param {module:packet.SecretKey} primaryKey Primary key packet
+ * @param {Object} options
+ */
+async function createBindingSignature(subkey, primaryKey, options) {
+  const dataToSign = {};
+  dataToSign.key = primaryKey;
+  dataToSign.bind = subkey;
+  const subkeySignaturePacket = new _packet2.default.Signature(options.date);
+  subkeySignaturePacket.signatureType = _enums2.default.signature.subkey_binding;
+  subkeySignaturePacket.publicKeyAlgorithm = primaryKey.algorithm;
+  subkeySignaturePacket.hashAlgorithm = await getPreferredHashAlgo(null, subkey);
+  if (options.sign) {
+    subkeySignaturePacket.keyFlags = [_enums2.default.keyFlags.sign_data];
+    subkeySignaturePacket.embeddedSignature = await createSignaturePacket(dataToSign, null, subkey, {
+      signatureType: _enums2.default.signature.key_binding
+    }, options.date);
+  } else {
+    subkeySignaturePacket.keyFlags = [_enums2.default.keyFlags.encrypt_communication | _enums2.default.keyFlags.encrypt_storage];
+  }
+  if (options.keyExpirationTime > 0) {
+    subkeySignaturePacket.keyExpirationTime = options.keyExpirationTime;
+    subkeySignaturePacket.keyNeverExpires = false;
+  }
+  await subkeySignaturePacket.sign(primaryKey, dataToSign);
+  return subkeySignaturePacket;
 }
 
 /**
@@ -35743,7 +35790,7 @@ function destroyWorker() {
  * Generates a new OpenPGP key pair. Supports RSA and ECC keys. Primary and subkey will be of same type.
  * @param  {Array<Object>} userIds   array of user IDs e.g. [{ name:'Phil Zimmermann', email:'phil@openpgp.org' }]
  * @param  {String} passphrase       (optional) The passphrase used to encrypt the resulting private key
- * @param  {Number} numBits          (optional) number of bits for RSA keys: 2048 or 4096.
+ * @param  {Number} rsaBits          (optional) number of bits for RSA keys: 2048 or 4096.
  * @param  {Number} keyExpirationTime (optional) The number of seconds after the key creation time that the key expires
  * @param  {String} curve            (optional) elliptic curve for ECC keys:
  *                                              curve25519, p256, p384, p521, secp256k1,
@@ -35757,11 +35804,11 @@ function destroyWorker() {
  * @static
  */
 
-function generateKey({ userIds = [], passphrase = "", numBits = 2048, keyExpirationTime = 0, curve = "", date = new Date(), subkeys = [{}] }) {
+function generateKey({ userIds = [], passphrase = "", numBits = 2048, rsaBits = numBits, keyExpirationTime = 0, curve = "", date = new Date(), subkeys = [{}] }) {
   userIds = toArray(userIds);
-  const options = { userIds, passphrase, numBits, keyExpirationTime, curve, date, subkeys };
-  if (_util2.default.getWebCryptoAll() && numBits < 2048) {
-    throw new Error('numBits should be 2048 or 4096, found: ' + numBits);
+  const options = { userIds, passphrase, rsaBits, keyExpirationTime, curve, date, subkeys };
+  if (_util2.default.getWebCryptoAll() && rsaBits < 2048) {
+    throw new Error('rsaBits should be 2048 or 4096, found: ' + rsaBits);
   }
 
   if (!_util2.default.getWebCryptoAll() && asyncProxy) {
@@ -38316,13 +38363,14 @@ PublicKey.prototype.hasSameFingerprintAs = function (other) {
 
 /**
  * Returns algorithm information
- * @returns {Object} An object of the form {algorithm: String, bits:int, curve:String}
+ * @returns {Object} An object of the form {algorithm: String, rsaBits:int, curve:String}
  */
 PublicKey.prototype.getAlgorithmInfo = function () {
   const result = {};
   result.algorithm = this.algorithm;
   if (this.params[0] instanceof _mpi2.default) {
-    result.bits = this.params[0].byteLength() * 8;
+    result.rsaBits = this.params[0].byteLength() * 8;
+    result.bits = result.rsaBits; // Deprecated.
   } else {
     result.curve = this.params[0].getName();
   }
@@ -39318,13 +39366,13 @@ Signature.prototype.sign = async function (key, data, detached = false, streamin
     this.signature = _webStreamTools2.default.fromAsync(signed);
   } else {
     this.signature = await signed();
-  }
 
-  // Store the fact that this signature is valid, e.g. for when we call `await
-  // getLatestValidSignature(this.revocationSignatures, key, data)` later. Note
-  // that this only holds up if the key and data passed to verify are the same
-  // as the ones passed to sign.
-  this.verified = true;
+    // Store the fact that this signature is valid, e.g. for when we call `await
+    // getLatestValidSignature(this.revocationSignatures, key, data)` later.
+    // Note that this only holds up if the key and data passed to verify are the
+    // same as the ones passed to sign.
+    this.verified = true;
+  }
   return true;
 };
 

@@ -41949,16 +41949,16 @@ var mergeSignatures = function () {
  * @returns {module:packet/signature}         signature packet
  */
 var createSignaturePacket = exports.createSignaturePacket = function () {
-  var _ref36 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee32(dataToSign, privateKey, signingKeyPacket, signatureProperties, date, userId) {
+  var _ref37 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee33(dataToSign, privateKey, signingKeyPacket, signatureProperties, date, userId) {
     var detached = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
     var streaming = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
     var signaturePacket;
-    return _regenerator2.default.wrap(function _callee32$(_context32) {
+    return _regenerator2.default.wrap(function _callee33$(_context33) {
       while (1) {
-        switch (_context32.prev = _context32.next) {
+        switch (_context33.prev = _context33.next) {
           case 0:
             if (signingKeyPacket.isDecrypted()) {
-              _context32.next = 2;
+              _context33.next = 2;
               break;
             }
 
@@ -41969,27 +41969,27 @@ var createSignaturePacket = exports.createSignaturePacket = function () {
 
             (0, _assign2.default)(signaturePacket, signatureProperties);
             signaturePacket.publicKeyAlgorithm = signingKeyPacket.algorithm;
-            _context32.next = 7;
+            _context33.next = 7;
             return getPreferredHashAlgo(privateKey, signingKeyPacket, date, userId);
 
           case 7:
-            signaturePacket.hashAlgorithm = _context32.sent;
-            _context32.next = 10;
+            signaturePacket.hashAlgorithm = _context33.sent;
+            _context33.next = 10;
             return signaturePacket.sign(signingKeyPacket, dataToSign, detached, streaming);
 
           case 10:
-            return _context32.abrupt('return', signaturePacket);
+            return _context33.abrupt('return', signaturePacket);
 
           case 11:
           case 'end':
-            return _context32.stop();
+            return _context33.stop();
         }
       }
-    }, _callee32, this);
+    }, _callee33, this);
   }));
 
-  return function createSignaturePacket(_x62, _x63, _x64, _x65, _x66, _x67) {
-    return _ref36.apply(this, arguments);
+  return function createSignaturePacket(_x63, _x64, _x65, _x66, _x67, _x68) {
+    return _ref37.apply(this, arguments);
   };
 }();
 
@@ -42014,26 +42014,26 @@ var createSignaturePacket = exports.createSignaturePacket = function () {
  * @static
  */
 var read = exports.read = function () {
-  var _ref52 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee47(data) {
+  var _ref53 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee48(data) {
     var result, err, packetlist, keyIndex, i, oneKeyList, newKey;
-    return _regenerator2.default.wrap(function _callee47$(_context47) {
+    return _regenerator2.default.wrap(function _callee48$(_context48) {
       while (1) {
-        switch (_context47.prev = _context47.next) {
+        switch (_context48.prev = _context48.next) {
           case 0:
             result = {};
 
             result.keys = [];
             err = [];
-            _context47.prev = 3;
+            _context48.prev = 3;
             packetlist = new _packet2.default.List();
-            _context47.next = 7;
+            _context48.next = 7;
             return packetlist.read(data);
 
           case 7:
             keyIndex = packetlist.indexOfTag(_enums2.default.packet.publicKey, _enums2.default.packet.secretKey);
 
             if (!(keyIndex.length === 0)) {
-              _context47.next = 10;
+              _context48.next = 10;
               break;
             }
 
@@ -42051,31 +42051,31 @@ var read = exports.read = function () {
                 err.push(e);
               }
             }
-            _context47.next = 16;
+            _context48.next = 16;
             break;
 
           case 13:
-            _context47.prev = 13;
-            _context47.t0 = _context47['catch'](3);
+            _context48.prev = 13;
+            _context48.t0 = _context48['catch'](3);
 
-            err.push(_context47.t0);
+            err.push(_context48.t0);
 
           case 16:
             if (err.length) {
               result.err = err;
             }
-            return _context47.abrupt('return', result);
+            return _context48.abrupt('return', result);
 
           case 18:
           case 'end':
-            return _context47.stop();
+            return _context48.stop();
         }
       }
-    }, _callee47, this, [[3, 13]]);
+    }, _callee48, this, [[3, 13]]);
   }));
 
-  return function read(_x99) {
-    return _ref52.apply(this, arguments);
+  return function read(_x100) {
+    return _ref53.apply(this, arguments);
   };
 }();
 
@@ -42090,47 +42090,47 @@ var read = exports.read = function () {
 
 
 var readArmored = exports.readArmored = function () {
-  var _ref53 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee48(armoredText) {
+  var _ref54 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee49(armoredText) {
     var input, result;
-    return _regenerator2.default.wrap(function _callee48$(_context48) {
+    return _regenerator2.default.wrap(function _callee49$(_context49) {
       while (1) {
-        switch (_context48.prev = _context48.next) {
+        switch (_context49.prev = _context49.next) {
           case 0:
-            _context48.prev = 0;
-            _context48.next = 3;
+            _context49.prev = 0;
+            _context49.next = 3;
             return _armor2.default.decode(armoredText);
 
           case 3:
-            input = _context48.sent;
+            input = _context49.sent;
 
             if (input.type === _enums2.default.armor.public_key || input.type === _enums2.default.armor.private_key) {
-              _context48.next = 6;
+              _context49.next = 6;
               break;
             }
 
             throw new Error('Armored text not of type key');
 
           case 6:
-            return _context48.abrupt('return', read(input.data));
+            return _context49.abrupt('return', read(input.data));
 
           case 9:
-            _context48.prev = 9;
-            _context48.t0 = _context48['catch'](0);
+            _context49.prev = 9;
+            _context49.t0 = _context49['catch'](0);
             result = { keys: [], err: [] };
 
-            result.err.push(_context48.t0);
-            return _context48.abrupt('return', result);
+            result.err.push(_context49.t0);
+            return _context49.abrupt('return', result);
 
           case 14:
           case 'end':
-            return _context48.stop();
+            return _context49.stop();
         }
       }
-    }, _callee48, this, [[0, 9]]);
+    }, _callee49, this, [[0, 9]]);
   }));
 
-  return function readArmored(_x100) {
-    return _ref53.apply(this, arguments);
+  return function readArmored(_x101) {
+    return _ref54.apply(this, arguments);
   };
 }();
 
@@ -42140,7 +42140,7 @@ var readArmored = exports.readArmored = function () {
  * @param {module:enums.publicKey} [options.keyType=module:enums.publicKey.rsa_encrypt_sign]
  *                             To indicate what type of key to make.
  *                             RSA is 1. See {@link https://tools.ietf.org/html/rfc4880#section-9.1}
- * @param {Integer} options.numBits    number of bits for the key creation.
+ * @param {Integer} options.rsaBits    number of bits for the key creation.
  * @param {String|Array<String>}  options.userIds
  *                             Assumes already in form of "User Name <username@email.com>"
  *                             If array is used, the first userId is set as primary user Id
@@ -42158,105 +42158,12 @@ var readArmored = exports.readArmored = function () {
 
 
 var generate = exports.generate = function () {
-  var _ref54 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee51(options) {
-    var generateSecretKey = function () {
-      var _ref55 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee49(options) {
-        var secretKeyPacket;
-        return _regenerator2.default.wrap(function _callee49$(_context49) {
-          while (1) {
-            switch (_context49.prev = _context49.next) {
-              case 0:
-                secretKeyPacket = new _packet2.default.SecretKey(options.date);
-
-                secretKeyPacket.packets = null;
-                secretKeyPacket.algorithm = _enums2.default.read(_enums2.default.publicKey, options.algorithm);
-                _context49.next = 5;
-                return secretKeyPacket.generate(options.numBits, options.curve);
-
-              case 5:
-                return _context49.abrupt('return', secretKeyPacket);
-
-              case 6:
-              case 'end':
-                return _context49.stop();
-            }
-          }
-        }, _callee49, this);
-      }));
-
-      return function generateSecretKey(_x103) {
-        return _ref55.apply(this, arguments);
-      };
-    }();
-
-    var generateSecretSubkey = function () {
-      var _ref56 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee50(options) {
-        var secretSubkeyPacket;
-        return _regenerator2.default.wrap(function _callee50$(_context50) {
-          while (1) {
-            switch (_context50.prev = _context50.next) {
-              case 0:
-                secretSubkeyPacket = new _packet2.default.SecretSubkey(options.date);
-
-                secretSubkeyPacket.packets = null;
-                secretSubkeyPacket.algorithm = _enums2.default.read(_enums2.default.publicKey, options.algorithm);
-                _context50.next = 5;
-                return secretSubkeyPacket.generate(options.numBits, options.curve);
-
-              case 5:
-                return _context50.abrupt('return', secretSubkeyPacket);
-
-              case 6:
-              case 'end':
-                return _context50.stop();
-            }
-          }
-        }, _callee50, this);
-      }));
-
-      return function generateSecretSubkey(_x104) {
-        return _ref56.apply(this, arguments);
-      };
-    }();
-
-    var promises, sanitizeKeyOptions;
-    return _regenerator2.default.wrap(function _callee51$(_context51) {
+  var _ref55 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee50(options) {
+    var promises;
+    return _regenerator2.default.wrap(function _callee50$(_context50) {
       while (1) {
-        switch (_context51.prev = _context51.next) {
+        switch (_context50.prev = _context50.next) {
           case 0:
-            sanitizeKeyOptions = function sanitizeKeyOptions(options) {
-              var subkeyDefaults = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-              options.curve = options.curve || subkeyDefaults.curve;
-              options.numBits = options.numBits || subkeyDefaults.numBits;
-              options.keyExpirationTime = options.keyExpirationTime !== undefined ? options.keyExpirationTime : subkeyDefaults.keyExpirationTime;
-              options.passphrase = _util2.default.isString(options.passphrase) ? options.passphrase : subkeyDefaults.passphrase;
-              options.date = options.date || subkeyDefaults.date;
-
-              options.sign = options.sign || false;
-
-              if (options.curve) {
-                try {
-                  options.curve = _enums2.default.write(_enums2.default.curve, options.curve);
-                } catch (e) {
-                  throw new Error('Not valid curve.');
-                }
-                if (options.curve === _enums2.default.curve.ed25519 || options.curve === _enums2.default.curve.curve25519) {
-                  options.curve = options.sign ? _enums2.default.curve.ed25519 : _enums2.default.curve.curve25519;
-                }
-                if (options.sign) {
-                  options.algorithm = options.curve === _enums2.default.curve.ed25519 ? _enums2.default.publicKey.eddsa : _enums2.default.publicKey.ecdsa;
-                } else {
-                  options.algorithm = _enums2.default.publicKey.ecdh;
-                }
-              } else if (options.numBits) {
-                options.algorithm = _enums2.default.publicKey.rsa_encrypt_sign;
-              } else {
-                throw new Error('Unrecognized key type');
-              }
-              return options;
-            };
-
             options.sign = true; // primary key is always a signing key
             options = sanitizeKeyOptions(options);
             options.subkeys = options.subkeys.map(function (subkey, index) {
@@ -42266,11 +42173,41 @@ var generate = exports.generate = function () {
             promises = [generateSecretKey(options)];
 
             promises = promises.concat(options.subkeys.map(generateSecretSubkey));
-            return _context51.abrupt('return', _promise2.default.all(promises).then(function (packets) {
+            return _context50.abrupt('return', _promise2.default.all(promises).then(function (packets) {
               return wrapKeyObject(packets[0], packets.slice(1), options);
             }));
 
-          case 7:
+          case 6:
+          case 'end':
+            return _context50.stop();
+        }
+      }
+    }, _callee50, this);
+  }));
+
+  return function generate(_x102) {
+    return _ref55.apply(this, arguments);
+  };
+}();
+
+var generateSecretKey = function () {
+  var _ref56 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee51(options) {
+    var secretKeyPacket;
+    return _regenerator2.default.wrap(function _callee51$(_context51) {
+      while (1) {
+        switch (_context51.prev = _context51.next) {
+          case 0:
+            secretKeyPacket = new _packet2.default.SecretKey(options.date);
+
+            secretKeyPacket.packets = null;
+            secretKeyPacket.algorithm = _enums2.default.read(_enums2.default.publicKey, options.algorithm);
+            _context51.next = 5;
+            return secretKeyPacket.generate(options.rsaBits, options.curve);
+
+          case 5:
+            return _context51.abrupt('return', secretKeyPacket);
+
+          case 6:
           case 'end':
             return _context51.stop();
         }
@@ -42278,8 +42215,38 @@ var generate = exports.generate = function () {
     }, _callee51, this);
   }));
 
-  return function generate(_x101) {
-    return _ref54.apply(this, arguments);
+  return function generateSecretKey(_x104) {
+    return _ref56.apply(this, arguments);
+  };
+}();
+
+var generateSecretSubkey = function () {
+  var _ref57 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee52(options) {
+    var secretSubkeyPacket;
+    return _regenerator2.default.wrap(function _callee52$(_context52) {
+      while (1) {
+        switch (_context52.prev = _context52.next) {
+          case 0:
+            secretSubkeyPacket = new _packet2.default.SecretSubkey(options.date);
+
+            secretSubkeyPacket.packets = null;
+            secretSubkeyPacket.algorithm = _enums2.default.read(_enums2.default.publicKey, options.algorithm);
+            _context52.next = 5;
+            return secretSubkeyPacket.generate(options.rsaBits, options.curve);
+
+          case 5:
+            return _context52.abrupt('return', secretSubkeyPacket);
+
+          case 6:
+          case 'end':
+            return _context52.stop();
+        }
+      }
+    }, _callee52, this);
+  }));
+
+  return function generateSecretSubkey(_x105) {
+    return _ref57.apply(this, arguments);
   };
 }();
 
@@ -42303,13 +42270,13 @@ var generate = exports.generate = function () {
 
 
 var reformat = exports.reformat = function () {
-  var _ref57 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee53(options) {
+  var _ref58 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee54(options) {
     var _this2 = this;
 
     var isDecrypted, packetlist, secretKeyPacket, secretSubkeyPackets, i, sanitizeKeyOptions;
-    return _regenerator2.default.wrap(function _callee53$(_context53) {
+    return _regenerator2.default.wrap(function _callee54$(_context54) {
       while (1) {
-        switch (_context53.prev = _context53.next) {
+        switch (_context54.prev = _context54.next) {
           case 0:
             sanitizeKeyOptions = function sanitizeKeyOptions(options) {
               var subkeyDefaults = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -42323,26 +42290,26 @@ var reformat = exports.reformat = function () {
 
             options = sanitizeKeyOptions(options);
 
-            _context53.prev = 2;
+            _context54.prev = 2;
             isDecrypted = options.privateKey.getKeys().every(function (key) {
               return key.isDecrypted();
             });
 
             if (isDecrypted) {
-              _context53.next = 7;
+              _context54.next = 7;
               break;
             }
 
-            _context53.next = 7;
+            _context54.next = 7;
             return options.privateKey.decrypt();
 
           case 7:
-            _context53.next = 12;
+            _context54.next = 12;
             break;
 
           case 9:
-            _context53.prev = 9;
-            _context53.t0 = _context53['catch'](2);
+            _context54.prev = 9;
+            _context54.t0 = _context54['catch'](2);
             throw new Error('Key not decrypted');
 
           case 12:
@@ -42359,7 +42326,7 @@ var reformat = exports.reformat = function () {
             }
 
             if (secretKeyPacket) {
-              _context53.next = 18;
+              _context54.next = 18;
               break;
             }
 
@@ -42367,59 +42334,59 @@ var reformat = exports.reformat = function () {
 
           case 18:
             if (options.subkeys) {
-              _context53.next = 22;
+              _context54.next = 22;
               break;
             }
 
-            _context53.next = 21;
+            _context54.next = 21;
             return _promise2.default.all(secretSubkeyPackets.map(function () {
-              var _ref58 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee52(secretSubkeyPacket) {
-                return _regenerator2.default.wrap(function _callee52$(_context52) {
+              var _ref59 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee53(secretSubkeyPacket) {
+                return _regenerator2.default.wrap(function _callee53$(_context53) {
                   while (1) {
-                    switch (_context52.prev = _context52.next) {
+                    switch (_context53.prev = _context53.next) {
                       case 0:
-                        _context52.next = 2;
+                        _context53.next = 2;
                         return options.privateKey.getSigningKey(secretSubkeyPacket.getKeyId(), null);
 
                       case 2:
-                        _context52.t0 = _context52.sent;
+                        _context53.t0 = _context53.sent;
 
-                        if (!_context52.t0) {
-                          _context52.next = 7;
+                        if (!_context53.t0) {
+                          _context53.next = 7;
                           break;
                         }
 
-                        _context52.next = 6;
+                        _context53.next = 6;
                         return options.privateKey.getEncryptionKey(secretSubkeyPacket.getKeyId(), null);
 
                       case 6:
-                        _context52.t0 = !_context52.sent;
+                        _context53.t0 = !_context53.sent;
 
                       case 7:
-                        _context52.t1 = _context52.t0;
-                        return _context52.abrupt('return', {
-                          sign: _context52.t1
+                        _context53.t1 = _context53.t0;
+                        return _context53.abrupt('return', {
+                          sign: _context53.t1
                         });
 
                       case 9:
                       case 'end':
-                        return _context52.stop();
+                        return _context53.stop();
                     }
                   }
-                }, _callee52, _this2);
+                }, _callee53, _this2);
               }));
 
-              return function (_x106) {
-                return _ref58.apply(this, arguments);
+              return function (_x107) {
+                return _ref59.apply(this, arguments);
               };
             }()));
 
           case 21:
-            options.subkeys = _context53.sent;
+            options.subkeys = _context54.sent;
 
           case 22:
             if (!(options.subkeys.length !== secretSubkeyPackets.length)) {
-              _context53.next = 24;
+              _context54.next = 24;
               break;
             }
 
@@ -42431,65 +42398,65 @@ var reformat = exports.reformat = function () {
               return sanitizeKeyOptions(options.subkeys[index], options);
             });
 
-            return _context53.abrupt('return', wrapKeyObject(secretKeyPacket, secretSubkeyPackets, options));
+            return _context54.abrupt('return', wrapKeyObject(secretKeyPacket, secretSubkeyPackets, options));
 
           case 26:
           case 'end':
-            return _context53.stop();
+            return _context54.stop();
         }
       }
-    }, _callee53, this, [[2, 9]]);
+    }, _callee54, this, [[2, 9]]);
   }));
 
-  return function reformat(_x105) {
-    return _ref57.apply(this, arguments);
+  return function reformat(_x106) {
+    return _ref58.apply(this, arguments);
   };
 }();
 
 var wrapKeyObject = function () {
-  var _ref59 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee58(secretKeyPacket, secretSubkeyPackets, options) {
+  var _ref60 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee59(secretKeyPacket, secretSubkeyPackets, options) {
     var packetlist, dataToSign;
-    return _regenerator2.default.wrap(function _callee58$(_context58) {
+    return _regenerator2.default.wrap(function _callee59$(_context59) {
       while (1) {
-        switch (_context58.prev = _context58.next) {
+        switch (_context59.prev = _context59.next) {
           case 0:
             if (!options.passphrase) {
-              _context58.next = 3;
+              _context59.next = 3;
               break;
             }
 
-            _context58.next = 3;
+            _context59.next = 3;
             return secretKeyPacket.encrypt(options.passphrase);
 
           case 3:
-            _context58.next = 5;
+            _context59.next = 5;
             return _promise2.default.all(secretSubkeyPackets.map(function () {
-              var _ref60 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee54(secretSubkeyPacket, index) {
+              var _ref61 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee55(secretSubkeyPacket, index) {
                 var subkeyPassphrase;
-                return _regenerator2.default.wrap(function _callee54$(_context54) {
+                return _regenerator2.default.wrap(function _callee55$(_context55) {
                   while (1) {
-                    switch (_context54.prev = _context54.next) {
+                    switch (_context55.prev = _context55.next) {
                       case 0:
                         subkeyPassphrase = options.subkeys[index].passphrase;
 
                         if (!subkeyPassphrase) {
-                          _context54.next = 4;
+                          _context55.next = 4;
                           break;
                         }
 
-                        _context54.next = 4;
+                        _context55.next = 4;
                         return secretSubkeyPacket.encrypt(subkeyPassphrase);
 
                       case 4:
                       case 'end':
-                        return _context54.stop();
+                        return _context55.stop();
                     }
                   }
-                }, _callee54, this);
+                }, _callee55, this);
               }));
 
-              return function (_x111, _x112) {
-                return _ref60.apply(this, arguments);
+              return function (_x112, _x113) {
+                return _ref61.apply(this, arguments);
               };
             }()));
 
@@ -42499,13 +42466,13 @@ var wrapKeyObject = function () {
 
             packetlist.push(secretKeyPacket);
 
-            _context58.next = 9;
+            _context59.next = 9;
             return _promise2.default.all(options.userIds.map(function () {
-              var _ref61 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee55(userId, index) {
+              var _ref62 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee56(userId, index) {
                 var createdPreferredAlgos, userIdPacket, dataToSign, signaturePacket;
-                return _regenerator2.default.wrap(function _callee55$(_context55) {
+                return _regenerator2.default.wrap(function _callee56$(_context56) {
                   while (1) {
-                    switch (_context55.prev = _context55.next) {
+                    switch (_context56.prev = _context56.next) {
                       case 0:
                         createdPreferredAlgos = function createdPreferredAlgos(algos, configAlgo) {
                           if (configAlgo) {
@@ -42535,11 +42502,11 @@ var wrapKeyObject = function () {
 
                         signaturePacket.signatureType = _enums2.default.signature.cert_generic;
                         signaturePacket.publicKeyAlgorithm = secretKeyPacket.algorithm;
-                        _context55.next = 11;
+                        _context56.next = 11;
                         return getPreferredHashAlgo(null, secretKeyPacket);
 
                       case 11:
-                        signaturePacket.hashAlgorithm = _context55.sent;
+                        signaturePacket.hashAlgorithm = _context56.sent;
 
                         signaturePacket.keyFlags = [_enums2.default.keyFlags.certify_keys | _enums2.default.keyFlags.sign_data];
                         signaturePacket.preferredSymmetricAlgorithms = createdPreferredAlgos([
@@ -42571,88 +42538,13 @@ var wrapKeyObject = function () {
                           signaturePacket.keyExpirationTime = options.keyExpirationTime;
                           signaturePacket.keyNeverExpires = false;
                         }
-                        _context55.next = 24;
+                        _context56.next = 24;
                         return signaturePacket.sign(secretKeyPacket, dataToSign);
 
                       case 24:
-                        return _context55.abrupt('return', { userIdPacket: userIdPacket, signaturePacket: signaturePacket });
+                        return _context56.abrupt('return', { userIdPacket: userIdPacket, signaturePacket: signaturePacket });
 
                       case 25:
-                      case 'end':
-                        return _context55.stop();
-                    }
-                  }
-                }, _callee55, this);
-              }));
-
-              return function (_x113, _x114) {
-                return _ref61.apply(this, arguments);
-              };
-            }())).then(function (list) {
-              list.forEach(function (_ref62) {
-                var userIdPacket = _ref62.userIdPacket,
-                    signaturePacket = _ref62.signaturePacket;
-
-                packetlist.push(userIdPacket);
-                packetlist.push(signaturePacket);
-              });
-            });
-
-          case 9:
-            _context58.next = 11;
-            return _promise2.default.all(secretSubkeyPackets.map(function () {
-              var _ref63 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee56(secretSubkeyPacket, index) {
-                var subkeyOptions, dataToSign, subkeySignaturePacket;
-                return _regenerator2.default.wrap(function _callee56$(_context56) {
-                  while (1) {
-                    switch (_context56.prev = _context56.next) {
-                      case 0:
-                        subkeyOptions = options.subkeys[index];
-                        dataToSign = {};
-
-                        dataToSign.key = secretKeyPacket;
-                        dataToSign.bind = secretSubkeyPacket;
-                        subkeySignaturePacket = new _packet2.default.Signature(subkeyOptions.date);
-
-                        subkeySignaturePacket.signatureType = _enums2.default.signature.subkey_binding;
-                        subkeySignaturePacket.publicKeyAlgorithm = secretKeyPacket.algorithm;
-                        _context56.next = 9;
-                        return getPreferredHashAlgo(null, secretSubkeyPacket);
-
-                      case 9:
-                        subkeySignaturePacket.hashAlgorithm = _context56.sent;
-
-                        if (!subkeyOptions.sign) {
-                          _context56.next = 17;
-                          break;
-                        }
-
-                        subkeySignaturePacket.keyFlags = [_enums2.default.keyFlags.sign_data];
-                        _context56.next = 14;
-                        return createSignaturePacket(dataToSign, null, secretSubkeyPacket, {
-                          signatureType: _enums2.default.signature.key_binding
-                        }, subkeyOptions.date);
-
-                      case 14:
-                        subkeySignaturePacket.embeddedSignature = _context56.sent;
-                        _context56.next = 18;
-                        break;
-
-                      case 17:
-                        subkeySignaturePacket.keyFlags = [_enums2.default.keyFlags.encrypt_communication | _enums2.default.keyFlags.encrypt_storage];
-
-                      case 18:
-                        if (subkeyOptions.keyExpirationTime > 0) {
-                          subkeySignaturePacket.keyExpirationTime = subkeyOptions.keyExpirationTime;
-                          subkeySignaturePacket.keyNeverExpires = false;
-                        }
-                        _context56.next = 21;
-                        return subkeySignaturePacket.sign(secretKeyPacket, dataToSign);
-
-                      case 21:
-                        return _context56.abrupt('return', { secretSubkeyPacket: secretSubkeyPacket, subkeySignaturePacket: subkeySignaturePacket });
-
-                      case 22:
                       case 'end':
                         return _context56.stop();
                     }
@@ -42660,13 +42552,51 @@ var wrapKeyObject = function () {
                 }, _callee56, this);
               }));
 
-              return function (_x115, _x116) {
-                return _ref63.apply(this, arguments);
+              return function (_x114, _x115) {
+                return _ref62.apply(this, arguments);
+              };
+            }())).then(function (list) {
+              list.forEach(function (_ref63) {
+                var userIdPacket = _ref63.userIdPacket,
+                    signaturePacket = _ref63.signaturePacket;
+
+                packetlist.push(userIdPacket);
+                packetlist.push(signaturePacket);
+              });
+            });
+
+          case 9:
+            _context59.next = 11;
+            return _promise2.default.all(secretSubkeyPackets.map(function () {
+              var _ref64 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee57(secretSubkeyPacket, index) {
+                var subkeyOptions, subkeySignaturePacket;
+                return _regenerator2.default.wrap(function _callee57$(_context57) {
+                  while (1) {
+                    switch (_context57.prev = _context57.next) {
+                      case 0:
+                        subkeyOptions = options.subkeys[index];
+                        _context57.next = 3;
+                        return createBindingSignature(secretSubkeyPacket, secretKeyPacket, subkeyOptions);
+
+                      case 3:
+                        subkeySignaturePacket = _context57.sent;
+                        return _context57.abrupt('return', { secretSubkeyPacket: secretSubkeyPacket, subkeySignaturePacket: subkeySignaturePacket });
+
+                      case 5:
+                      case 'end':
+                        return _context57.stop();
+                    }
+                  }
+                }, _callee57, this);
+              }));
+
+              return function (_x116, _x117) {
+                return _ref64.apply(this, arguments);
               };
             }())).then(function (packets) {
-              packets.forEach(function (_ref64) {
-                var secretSubkeyPacket = _ref64.secretSubkeyPacket,
-                    subkeySignaturePacket = _ref64.subkeySignaturePacket;
+              packets.forEach(function (_ref65) {
+                var secretSubkeyPacket = _ref65.secretSubkeyPacket,
+                    subkeySignaturePacket = _ref65.subkeySignaturePacket;
 
                 packetlist.push(secretSubkeyPacket);
                 packetlist.push(subkeySignaturePacket);
@@ -42678,8 +42608,8 @@ var wrapKeyObject = function () {
             // Add revocation signature packet for creating a revocation certificate.
             // This packet should be removed before returning the key.
             dataToSign = { key: secretKeyPacket };
-            _context58.t0 = packetlist;
-            _context58.next = 15;
+            _context59.t0 = packetlist;
+            _context59.next = 15;
             return createSignaturePacket(dataToSign, null, secretKeyPacket, {
               signatureType: _enums2.default.signature.key_revocation,
               reasonForRevocationFlag: _enums2.default.reasonForRevocation.no_reason,
@@ -42687,22 +42617,22 @@ var wrapKeyObject = function () {
             }, options.date);
 
           case 15:
-            _context58.t1 = _context58.sent;
+            _context59.t1 = _context59.sent;
 
-            _context58.t0.push.call(_context58.t0, _context58.t1);
+            _context59.t0.push.call(_context59.t0, _context59.t1);
 
             // set passphrase protection
             if (options.passphrase) {
               secretKeyPacket.clearPrivateParams();
             }
 
-            _context58.next = 20;
+            _context59.next = 20;
             return _promise2.default.all(secretSubkeyPackets.map(function () {
-              var _ref65 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee57(secretSubkeyPacket, index) {
+              var _ref66 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee58(secretSubkeyPacket, index) {
                 var subkeyPassphrase;
-                return _regenerator2.default.wrap(function _callee57$(_context57) {
+                return _regenerator2.default.wrap(function _callee58$(_context58) {
                   while (1) {
-                    switch (_context57.prev = _context57.next) {
+                    switch (_context58.prev = _context58.next) {
                       case 0:
                         subkeyPassphrase = options.subkeys[index].passphrase;
 
@@ -42712,30 +42642,103 @@ var wrapKeyObject = function () {
 
                       case 2:
                       case 'end':
-                        return _context57.stop();
+                        return _context58.stop();
                     }
                   }
-                }, _callee57, this);
+                }, _callee58, this);
               }));
 
-              return function (_x117, _x118) {
-                return _ref65.apply(this, arguments);
+              return function (_x118, _x119) {
+                return _ref66.apply(this, arguments);
               };
             }()));
 
           case 20:
-            return _context58.abrupt('return', new Key(packetlist));
+            return _context59.abrupt('return', new Key(packetlist));
 
           case 21:
           case 'end':
-            return _context58.stop();
+            return _context59.stop();
         }
       }
-    }, _callee58, this);
+    }, _callee59, this);
   }));
 
-  return function wrapKeyObject(_x108, _x109, _x110) {
-    return _ref59.apply(this, arguments);
+  return function wrapKeyObject(_x109, _x110, _x111) {
+    return _ref60.apply(this, arguments);
+  };
+}();
+
+/**
+ * Create subkey binding signature
+ * @see {@link https://tools.ietf.org/html/rfc4880#section-5.2.1|RFC4880 Section 5.2.1}
+ * @param {module:packet.SecretSubkey} subkey Subkey key packet
+ * @param {module:packet.SecretKey} primaryKey Primary key packet
+ * @param {Object} options
+ */
+
+
+var createBindingSignature = function () {
+  var _ref67 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee60(subkey, primaryKey, options) {
+    var dataToSign, subkeySignaturePacket;
+    return _regenerator2.default.wrap(function _callee60$(_context60) {
+      while (1) {
+        switch (_context60.prev = _context60.next) {
+          case 0:
+            dataToSign = {};
+
+            dataToSign.key = primaryKey;
+            dataToSign.bind = subkey;
+            subkeySignaturePacket = new _packet2.default.Signature(options.date);
+
+            subkeySignaturePacket.signatureType = _enums2.default.signature.subkey_binding;
+            subkeySignaturePacket.publicKeyAlgorithm = primaryKey.algorithm;
+            _context60.next = 8;
+            return getPreferredHashAlgo(null, subkey);
+
+          case 8:
+            subkeySignaturePacket.hashAlgorithm = _context60.sent;
+
+            if (!options.sign) {
+              _context60.next = 16;
+              break;
+            }
+
+            subkeySignaturePacket.keyFlags = [_enums2.default.keyFlags.sign_data];
+            _context60.next = 13;
+            return createSignaturePacket(dataToSign, null, subkey, {
+              signatureType: _enums2.default.signature.key_binding
+            }, options.date);
+
+          case 13:
+            subkeySignaturePacket.embeddedSignature = _context60.sent;
+            _context60.next = 17;
+            break;
+
+          case 16:
+            subkeySignaturePacket.keyFlags = [_enums2.default.keyFlags.encrypt_communication | _enums2.default.keyFlags.encrypt_storage];
+
+          case 17:
+            if (options.keyExpirationTime > 0) {
+              subkeySignaturePacket.keyExpirationTime = options.keyExpirationTime;
+              subkeySignaturePacket.keyNeverExpires = false;
+            }
+            _context60.next = 20;
+            return subkeySignaturePacket.sign(primaryKey, dataToSign);
+
+          case 20:
+            return _context60.abrupt('return', subkeySignaturePacket);
+
+          case 21:
+          case 'end':
+            return _context60.stop();
+        }
+      }
+    }, _callee60, this);
+  }));
+
+  return function createBindingSignature(_x120, _x121, _x122) {
+    return _ref67.apply(this, arguments);
   };
 }();
 
@@ -42757,96 +42760,96 @@ var wrapKeyObject = function () {
 
 
 var isDataRevoked = function () {
-  var _ref66 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee60(primaryKey, signatureType, dataToVerify, revocations, signature, key) {
+  var _ref68 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee62(primaryKey, signatureType, dataToVerify, revocations, signature, key) {
     var date = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : new Date();
     var normDate, revocationKeyIds;
-    return _regenerator2.default.wrap(function _callee60$(_context60) {
+    return _regenerator2.default.wrap(function _callee62$(_context62) {
       while (1) {
-        switch (_context60.prev = _context60.next) {
+        switch (_context62.prev = _context62.next) {
           case 0:
             key = key || primaryKey;
             normDate = _util2.default.normalizeDate(date);
             revocationKeyIds = [];
-            _context60.next = 5;
+            _context62.next = 5;
             return _promise2.default.all(revocations.map(function () {
-              var _ref67 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee59(revocationSignature) {
-                return _regenerator2.default.wrap(function _callee59$(_context59) {
+              var _ref69 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee61(revocationSignature) {
+                return _regenerator2.default.wrap(function _callee61$(_context61) {
                   while (1) {
-                    switch (_context59.prev = _context59.next) {
+                    switch (_context61.prev = _context61.next) {
                       case 0:
-                        _context59.t0 = (!signature || revocationSignature.issuerKeyId.equals(signature.issuerKeyId)) && !(_config2.default.revocations_expire && revocationSignature.isExpired(normDate));
+                        _context61.t0 = (!signature || revocationSignature.issuerKeyId.equals(signature.issuerKeyId)) && !(_config2.default.revocations_expire && revocationSignature.isExpired(normDate));
 
-                        if (!_context59.t0) {
-                          _context59.next = 8;
+                        if (!_context61.t0) {
+                          _context61.next = 8;
                           break;
                         }
 
-                        _context59.t1 = revocationSignature.verified;
+                        _context61.t1 = revocationSignature.verified;
 
-                        if (_context59.t1) {
-                          _context59.next = 7;
+                        if (_context61.t1) {
+                          _context61.next = 7;
                           break;
                         }
 
-                        _context59.next = 6;
+                        _context61.next = 6;
                         return revocationSignature.verify(key, signatureType, dataToVerify);
 
                       case 6:
-                        _context59.t1 = _context59.sent;
+                        _context61.t1 = _context61.sent;
 
                       case 7:
-                        _context59.t0 = _context59.t1;
+                        _context61.t0 = _context61.t1;
 
                       case 8:
-                        if (!_context59.t0) {
-                          _context59.next = 11;
+                        if (!_context61.t0) {
+                          _context61.next = 11;
                           break;
                         }
 
                         // TODO get an identifier of the revoked object instead
                         revocationKeyIds.push(revocationSignature.issuerKeyId);
-                        return _context59.abrupt('return', true);
+                        return _context61.abrupt('return', true);
 
                       case 11:
-                        return _context59.abrupt('return', false);
+                        return _context61.abrupt('return', false);
 
                       case 12:
                       case 'end':
-                        return _context59.stop();
+                        return _context61.stop();
                     }
                   }
-                }, _callee59, this);
+                }, _callee61, this);
               }));
 
-              return function (_x126) {
-                return _ref67.apply(this, arguments);
+              return function (_x130) {
+                return _ref69.apply(this, arguments);
               };
             }()));
 
           case 5:
             if (!signature) {
-              _context60.next = 8;
+              _context62.next = 8;
               break;
             }
 
             signature.revoked = revocationKeyIds.some(function (keyId) {
               return keyId.equals(signature.issuerKeyId);
             }) ? true : signature.revoked || false;
-            return _context60.abrupt('return', signature.revoked);
+            return _context62.abrupt('return', signature.revoked);
 
           case 8:
-            return _context60.abrupt('return', revocationKeyIds.length > 0);
+            return _context62.abrupt('return', revocationKeyIds.length > 0);
 
           case 9:
           case 'end':
-            return _context60.stop();
+            return _context62.stop();
         }
       }
-    }, _callee60, this);
+    }, _callee62, this);
   }));
 
-  return function isDataRevoked(_x119, _x120, _x121, _x122, _x123, _x124) {
-    return _ref66.apply(this, arguments);
+  return function isDataRevoked(_x123, _x124, _x125, _x126, _x127, _x128) {
+    return _ref68.apply(this, arguments);
   };
 }();
 
@@ -42860,29 +42863,29 @@ var isDataRevoked = function () {
  * @async
  */
 var getPreferredHashAlgo = exports.getPreferredHashAlgo = function () {
-  var _ref68 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee61(key, keyPacket) {
+  var _ref70 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee63(key, keyPacket) {
     var date = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Date();
     var userId = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
     var hash_algo, pref_algo, primaryUser, _primaryUser$selfCert;
 
-    return _regenerator2.default.wrap(function _callee61$(_context61) {
+    return _regenerator2.default.wrap(function _callee63$(_context63) {
       while (1) {
-        switch (_context61.prev = _context61.next) {
+        switch (_context63.prev = _context63.next) {
           case 0:
             hash_algo = _config2.default.prefer_hash_algorithm;
             pref_algo = hash_algo;
 
             if (!(key instanceof Key)) {
-              _context61.next = 7;
+              _context63.next = 7;
               break;
             }
 
-            _context61.next = 5;
+            _context63.next = 5;
             return key.getPrimaryUser(date, userId);
 
           case 5:
-            primaryUser = _context61.sent;
+            primaryUser = _context63.sent;
 
             if (primaryUser && primaryUser.selfCertification.preferredHashAlgorithms) {
               _primaryUser$selfCert = (0, _slicedToArray3.default)(primaryUser.selfCertification.preferredHashAlgorithms, 1);
@@ -42904,18 +42907,18 @@ var getPreferredHashAlgo = exports.getPreferredHashAlgo = function () {
                     pref_algo = _crypto2.default.publicKey.elliptic.getPreferredHashAlgo(keyPacket.params[0]);
                 }
             }
-            return _context61.abrupt('return', _crypto2.default.hash.getHashByteLength(hash_algo) <= _crypto2.default.hash.getHashByteLength(pref_algo) ? pref_algo : hash_algo);
+            return _context63.abrupt('return', _crypto2.default.hash.getHashByteLength(hash_algo) <= _crypto2.default.hash.getHashByteLength(pref_algo) ? pref_algo : hash_algo);
 
           case 9:
           case 'end':
-            return _context61.stop();
+            return _context63.stop();
         }
       }
-    }, _callee61, this);
+    }, _callee63, this);
   }));
 
-  return function getPreferredHashAlgo(_x128, _x129) {
-    return _ref68.apply(this, arguments);
+  return function getPreferredHashAlgo(_x132, _x133) {
+    return _ref70.apply(this, arguments);
   };
 }();
 
@@ -42931,37 +42934,37 @@ var getPreferredHashAlgo = exports.getPreferredHashAlgo = function () {
 
 
 var getPreferredAlgo = exports.getPreferredAlgo = function () {
-  var _ref69 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee63(type, keys) {
+  var _ref71 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee65(type, keys) {
     var date = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Date();
     var userIds = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
     var prefProperty, defaultAlgo, prioMap, prefAlgo;
-    return _regenerator2.default.wrap(function _callee63$(_context63) {
+    return _regenerator2.default.wrap(function _callee65$(_context65) {
       while (1) {
-        switch (_context63.prev = _context63.next) {
+        switch (_context65.prev = _context65.next) {
           case 0:
             prefProperty = type === 'symmetric' ? 'preferredSymmetricAlgorithms' : 'preferredAeadAlgorithms';
             defaultAlgo = type === 'symmetric' ? _enums2.default.symmetric.aes128 : _enums2.default.aead.eax;
             prioMap = {};
-            _context63.next = 5;
+            _context65.next = 5;
             return _promise2.default.all(keys.map(function () {
-              var _ref70 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee62(key, i) {
+              var _ref72 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee64(key, i) {
                 var primaryUser;
-                return _regenerator2.default.wrap(function _callee62$(_context62) {
+                return _regenerator2.default.wrap(function _callee64$(_context64) {
                   while (1) {
-                    switch (_context62.prev = _context62.next) {
+                    switch (_context64.prev = _context64.next) {
                       case 0:
-                        _context62.next = 2;
+                        _context64.next = 2;
                         return key.getPrimaryUser(date, userIds[i]);
 
                       case 2:
-                        primaryUser = _context62.sent;
+                        primaryUser = _context64.sent;
 
                         if (!(!primaryUser || !primaryUser.selfCertification[prefProperty])) {
-                          _context62.next = 5;
+                          _context64.next = 5;
                           break;
                         }
 
-                        return _context62.abrupt('return', defaultAlgo);
+                        return _context64.abrupt('return', defaultAlgo);
 
                       case 5:
                         primaryUser.selfCertification[prefProperty].forEach(function (algo, index) {
@@ -42972,24 +42975,24 @@ var getPreferredAlgo = exports.getPreferredAlgo = function () {
 
                       case 6:
                       case 'end':
-                        return _context62.stop();
+                        return _context64.stop();
                     }
                   }
-                }, _callee62, this);
+                }, _callee64, this);
               }));
 
-              return function (_x136, _x137) {
-                return _ref70.apply(this, arguments);
+              return function (_x140, _x141) {
+                return _ref72.apply(this, arguments);
               };
             }()));
 
           case 5:
             prefAlgo = { prio: 0, algo: defaultAlgo };
 
-            (0, _values2.default)(prioMap).forEach(function (_ref71) {
-              var prio = _ref71.prio,
-                  count = _ref71.count,
-                  algo = _ref71.algo;
+            (0, _values2.default)(prioMap).forEach(function (_ref73) {
+              var prio = _ref73.prio,
+                  count = _ref73.count,
+                  algo = _ref73.algo;
 
               try {
                 if (algo !== _enums2.default[type].plaintext && algo !== _enums2.default[type].idea && // not implemented
@@ -43000,18 +43003,18 @@ var getPreferredAlgo = exports.getPreferredAlgo = function () {
                 }
               } catch (e) {}
             });
-            return _context63.abrupt('return', prefAlgo.algo);
+            return _context65.abrupt('return', prefAlgo.algo);
 
           case 8:
           case 'end':
-            return _context63.stop();
+            return _context65.stop();
         }
       }
-    }, _callee63, this);
+    }, _callee65, this);
   }));
 
-  return function getPreferredAlgo(_x132, _x133) {
-    return _ref69.apply(this, arguments);
+  return function getPreferredAlgo(_x136, _x137) {
+    return _ref71.apply(this, arguments);
   };
 }();
 
@@ -43026,30 +43029,30 @@ var getPreferredAlgo = exports.getPreferredAlgo = function () {
 
 
 var isAeadSupported = exports.isAeadSupported = function () {
-  var _ref72 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee65(keys) {
+  var _ref74 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee67(keys) {
     var date = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
     var userIds = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
     var supported;
-    return _regenerator2.default.wrap(function _callee65$(_context65) {
+    return _regenerator2.default.wrap(function _callee67$(_context67) {
       while (1) {
-        switch (_context65.prev = _context65.next) {
+        switch (_context67.prev = _context67.next) {
           case 0:
             supported = true;
             // TODO replace when Promise.some or Promise.any are implemented
 
-            _context65.next = 3;
+            _context67.next = 3;
             return _promise2.default.all(keys.map(function () {
-              var _ref73 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee64(key, i) {
+              var _ref75 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee66(key, i) {
                 var primaryUser;
-                return _regenerator2.default.wrap(function _callee64$(_context64) {
+                return _regenerator2.default.wrap(function _callee66$(_context66) {
                   while (1) {
-                    switch (_context64.prev = _context64.next) {
+                    switch (_context66.prev = _context66.next) {
                       case 0:
-                        _context64.next = 2;
+                        _context66.next = 2;
                         return key.getPrimaryUser(date, userIds[i]);
 
                       case 2:
-                        primaryUser = _context64.sent;
+                        primaryUser = _context66.sent;
 
                         if (!primaryUser || !primaryUser.selfCertification.features || !(primaryUser.selfCertification.features[0] & _enums2.default.features.aead)) {
                           supported = false;
@@ -43057,30 +43060,30 @@ var isAeadSupported = exports.isAeadSupported = function () {
 
                       case 4:
                       case 'end':
-                        return _context64.stop();
+                        return _context66.stop();
                     }
                   }
-                }, _callee64, this);
+                }, _callee66, this);
               }));
 
-              return function (_x141, _x142) {
-                return _ref73.apply(this, arguments);
+              return function (_x145, _x146) {
+                return _ref75.apply(this, arguments);
               };
             }()));
 
           case 3:
-            return _context65.abrupt('return', supported);
+            return _context67.abrupt('return', supported);
 
           case 4:
           case 'end':
-            return _context65.stop();
+            return _context67.stop();
         }
       }
-    }, _callee65, this);
+    }, _callee67, this);
   }));
 
-  return function isAeadSupported(_x138) {
-    return _ref72.apply(this, arguments);
+  return function isAeadSupported(_x142) {
+    return _ref74.apply(this, arguments);
   };
 }();
 
@@ -44880,6 +44883,92 @@ Key.prototype.verifyAllUsers = function () {
 }();
 
 /**
+ * Generates a new OpenPGP subkey, and returns a clone of the Key object with the new subkey added.
+ * Supports RSA and ECC keys. Defaults to the algorithm and bit size/curve of the primary key.
+ * @param {Integer} options.rsaBits    number of bits for the key creation.
+ * @param {Number} [options.keyExpirationTime=0]
+ *                             The number of seconds after the key creation time that the key expires
+ * @param {String} curve       (optional) Elliptic curve for ECC keys
+ * @param {Date} date          (optional) Override the creation date of the key and the key signatures
+ * @param {Boolean} subkeys    (optional) Indicates whether the subkey should sign rather than encrypt. Defaults to false
+ * @returns {Promise<module:key.Key>}
+ * @async
+ */
+Key.prototype.addSubkey = function () {
+  var _ref33 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee29() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var secretKeyPacket, defaultOptions, keyPacket, bindingSignature, packetList;
+    return _regenerator2.default.wrap(function _callee29$(_context29) {
+      while (1) {
+        switch (_context29.prev = _context29.next) {
+          case 0:
+            if (this.isPrivate()) {
+              _context29.next = 2;
+              break;
+            }
+
+            throw new Error("Cannot add a subkey to a public key");
+
+          case 2:
+            if (!options.passphrase) {
+              _context29.next = 4;
+              break;
+            }
+
+            throw new Error("Subkey could not be encrypted here, please encrypt whole key");
+
+          case 4:
+            if (!(_util2.default.getWebCryptoAll() && options.rsaBits < 2048)) {
+              _context29.next = 6;
+              break;
+            }
+
+            throw new Error('When using webCrypto rsaBits should be 2048 or 4096, found: ' + options.rsaBits);
+
+          case 6:
+            secretKeyPacket = this.primaryKey;
+
+            if (secretKeyPacket.isDecrypted()) {
+              _context29.next = 9;
+              break;
+            }
+
+            throw new Error("Key is not decrypted");
+
+          case 9:
+            defaultOptions = secretKeyPacket.getAlgorithmInfo();
+
+            options = sanitizeKeyOptions(options, defaultOptions);
+            _context29.next = 13;
+            return generateSecretSubkey(options);
+
+          case 13:
+            keyPacket = _context29.sent;
+            _context29.next = 16;
+            return createBindingSignature(keyPacket, secretKeyPacket, options);
+
+          case 16:
+            bindingSignature = _context29.sent;
+            packetList = this.toPacketlist();
+
+            packetList.push(keyPacket);
+            packetList.push(bindingSignature);
+            return _context29.abrupt('return', new Key(packetList));
+
+          case 21:
+          case 'end':
+            return _context29.stop();
+        }
+      }
+    }, _callee29, this);
+  }));
+
+  return function () {
+    return _ref33.apply(this, arguments);
+  };
+}();
+
+/**
  * @class
  * @classdesc Class that represents an user ID or attribute packet and the relevant signatures.
  */
@@ -44916,11 +45005,11 @@ User.prototype.toPacketlist = function () {
  * @async
  */
 User.prototype.sign = function () {
-  var _ref33 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee30(primaryKey, privateKeys) {
+  var _ref34 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee31(primaryKey, privateKeys) {
     var dataToSign, user;
-    return _regenerator2.default.wrap(function _callee30$(_context30) {
+    return _regenerator2.default.wrap(function _callee31$(_context31) {
       while (1) {
-        switch (_context30.prev = _context30.next) {
+        switch (_context31.prev = _context31.next) {
           case 0:
             dataToSign = {
               userId: this.userId,
@@ -44928,16 +45017,16 @@ User.prototype.sign = function () {
               key: primaryKey
             };
             user = new User(dataToSign.userId || dataToSign.userAttribute);
-            _context30.next = 4;
+            _context31.next = 4;
             return _promise2.default.all(privateKeys.map(function () {
-              var _ref34 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee29(privateKey) {
+              var _ref35 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee30(privateKey) {
                 var signingKey;
-                return _regenerator2.default.wrap(function _callee29$(_context29) {
+                return _regenerator2.default.wrap(function _callee30$(_context30) {
                   while (1) {
-                    switch (_context29.prev = _context29.next) {
+                    switch (_context30.prev = _context30.next) {
                       case 0:
                         if (!privateKey.isPublic()) {
-                          _context29.next = 2;
+                          _context30.next = 2;
                           break;
                         }
 
@@ -44945,28 +45034,28 @@ User.prototype.sign = function () {
 
                       case 2:
                         if (!privateKey.hasSameFingerprintAs(primaryKey)) {
-                          _context29.next = 4;
+                          _context30.next = 4;
                           break;
                         }
 
                         throw new Error('Not implemented for self signing');
 
                       case 4:
-                        _context29.next = 6;
+                        _context30.next = 6;
                         return privateKey.getSigningKey();
 
                       case 6:
-                        signingKey = _context29.sent;
+                        signingKey = _context30.sent;
 
                         if (signingKey) {
-                          _context29.next = 9;
+                          _context30.next = 9;
                           break;
                         }
 
                         throw new Error('Could not find valid signing key packet in key ' + privateKey.getKeyId().toHex());
 
                       case 9:
-                        return _context29.abrupt('return', createSignaturePacket(dataToSign, privateKey, signingKey.keyPacket, {
+                        return _context30.abrupt('return', createSignaturePacket(dataToSign, privateKey, signingKey.keyPacket, {
                           // Most OpenPGP implementations use generic certification (0x10)
                           signatureType: _enums2.default.signature.cert_generic,
                           keyFlags: [_enums2.default.keyFlags.certify_keys | _enums2.default.keyFlags.sign_data]
@@ -44974,35 +45063,35 @@ User.prototype.sign = function () {
 
                       case 10:
                       case 'end':
-                        return _context29.stop();
+                        return _context30.stop();
                     }
                   }
-                }, _callee29, this);
+                }, _callee30, this);
               }));
 
-              return function (_x57) {
-                return _ref34.apply(this, arguments);
+              return function (_x58) {
+                return _ref35.apply(this, arguments);
               };
             }()));
 
           case 4:
-            user.otherCertifications = _context30.sent;
-            _context30.next = 7;
+            user.otherCertifications = _context31.sent;
+            _context31.next = 7;
             return user.update(this, primaryKey);
 
           case 7:
-            return _context30.abrupt('return', user);
+            return _context31.abrupt('return', user);
 
           case 8:
           case 'end':
-            return _context30.stop();
+            return _context31.stop();
         }
       }
-    }, _callee30, this);
+    }, _callee31, this);
   }));
 
-  return function (_x55, _x56) {
-    return _ref33.apply(this, arguments);
+  return function (_x56, _x57) {
+    return _ref34.apply(this, arguments);
   };
 }();
 
@@ -45020,13 +45109,13 @@ User.prototype.sign = function () {
  * @async
  */
 User.prototype.isRevoked = function () {
-  var _ref35 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee31(primaryKey, certificate, key) {
+  var _ref36 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee32(primaryKey, certificate, key) {
     var date = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : new Date();
-    return _regenerator2.default.wrap(function _callee31$(_context31) {
+    return _regenerator2.default.wrap(function _callee32$(_context32) {
       while (1) {
-        switch (_context31.prev = _context31.next) {
+        switch (_context32.prev = _context32.next) {
           case 0:
-            return _context31.abrupt('return', isDataRevoked(primaryKey, _enums2.default.signature.cert_revocation, {
+            return _context32.abrupt('return', isDataRevoked(primaryKey, _enums2.default.signature.cert_revocation, {
               key: primaryKey,
               userId: this.userId,
               userAttribute: this.userAttribute
@@ -45034,22 +45123,22 @@ User.prototype.isRevoked = function () {
 
           case 1:
           case 'end':
-            return _context31.stop();
+            return _context32.stop();
         }
       }
-    }, _callee31, this);
+    }, _callee32, this);
   }));
 
-  return function (_x58, _x59, _x60) {
-    return _ref35.apply(this, arguments);
+  return function (_x59, _x60, _x61) {
+    return _ref36.apply(this, arguments);
   };
 }();User.prototype.verifyCertificate = function () {
-  var _ref37 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee34(primaryKey, certificate, keys) {
+  var _ref38 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee35(primaryKey, certificate, keys) {
     var date = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : new Date();
     var that, keyid, dataToVerify, results;
-    return _regenerator2.default.wrap(function _callee34$(_context34) {
+    return _regenerator2.default.wrap(function _callee35$(_context35) {
       while (1) {
-        switch (_context34.prev = _context34.next) {
+        switch (_context35.prev = _context35.next) {
           case 0:
             that = this;
             keyid = certificate.issuerKeyId;
@@ -45058,112 +45147,112 @@ User.prototype.isRevoked = function () {
               userAttribute: this.userAttribute,
               key: primaryKey
             };
-            _context34.next = 5;
+            _context35.next = 5;
             return _promise2.default.all(keys.map(function () {
-              var _ref38 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee33(key) {
+              var _ref39 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee34(key) {
                 var signingKey;
-                return _regenerator2.default.wrap(function _callee33$(_context33) {
+                return _regenerator2.default.wrap(function _callee34$(_context34) {
                   while (1) {
-                    switch (_context33.prev = _context33.next) {
+                    switch (_context34.prev = _context34.next) {
                       case 0:
                         if (key.getKeyIds().some(function (id) {
                           return id.equals(keyid);
                         })) {
-                          _context33.next = 2;
+                          _context34.next = 2;
                           break;
                         }
 
-                        return _context33.abrupt('return');
+                        return _context34.abrupt('return');
 
                       case 2:
-                        _context33.next = 4;
+                        _context34.next = 4;
                         return key.getSigningKey(keyid, date);
 
                       case 4:
-                        signingKey = _context33.sent;
-                        _context33.t0 = certificate.revoked;
+                        signingKey = _context34.sent;
+                        _context34.t0 = certificate.revoked;
 
-                        if (_context33.t0) {
-                          _context33.next = 10;
+                        if (_context34.t0) {
+                          _context34.next = 10;
                           break;
                         }
 
-                        _context33.next = 9;
+                        _context34.next = 9;
                         return that.isRevoked(primaryKey, certificate, signingKey.keyPacket, date);
 
                       case 9:
-                        _context33.t0 = _context33.sent;
+                        _context34.t0 = _context34.sent;
 
                       case 10:
-                        if (!_context33.t0) {
-                          _context33.next = 12;
+                        if (!_context34.t0) {
+                          _context34.next = 12;
                           break;
                         }
 
-                        return _context33.abrupt('return', _enums2.default.keyStatus.revoked);
+                        return _context34.abrupt('return', _enums2.default.keyStatus.revoked);
 
                       case 12:
-                        _context33.t1 = certificate.verified;
+                        _context34.t1 = certificate.verified;
 
-                        if (_context33.t1) {
-                          _context33.next = 17;
+                        if (_context34.t1) {
+                          _context34.next = 17;
                           break;
                         }
 
-                        _context33.next = 16;
+                        _context34.next = 16;
                         return certificate.verify(signingKey.keyPacket, _enums2.default.signature.cert_generic, dataToVerify);
 
                       case 16:
-                        _context33.t1 = _context33.sent;
+                        _context34.t1 = _context34.sent;
 
                       case 17:
-                        if (_context33.t1) {
-                          _context33.next = 19;
+                        if (_context34.t1) {
+                          _context34.next = 19;
                           break;
                         }
 
-                        return _context33.abrupt('return', _enums2.default.keyStatus.invalid);
+                        return _context34.abrupt('return', _enums2.default.keyStatus.invalid);
 
                       case 19:
                         if (!certificate.isExpired(date)) {
-                          _context33.next = 21;
+                          _context34.next = 21;
                           break;
                         }
 
-                        return _context33.abrupt('return', _enums2.default.keyStatus.expired);
+                        return _context34.abrupt('return', _enums2.default.keyStatus.expired);
 
                       case 21:
-                        return _context33.abrupt('return', _enums2.default.keyStatus.valid);
+                        return _context34.abrupt('return', _enums2.default.keyStatus.valid);
 
                       case 22:
                       case 'end':
-                        return _context33.stop();
+                        return _context34.stop();
                     }
                   }
-                }, _callee33, this);
+                }, _callee34, this);
               }));
 
-              return function (_x74) {
-                return _ref38.apply(this, arguments);
+              return function (_x75) {
+                return _ref39.apply(this, arguments);
               };
             }()));
 
           case 5:
-            results = _context34.sent;
-            return _context34.abrupt('return', results.find(function (result) {
+            results = _context35.sent;
+            return _context35.abrupt('return', results.find(function (result) {
               return result !== undefined;
             }));
 
           case 7:
           case 'end':
-            return _context34.stop();
+            return _context35.stop();
         }
       }
-    }, _callee34, this);
+    }, _callee35, this);
   }));
 
-  return function (_x70, _x71, _x72) {
-    return _ref37.apply(this, arguments);
+  return function (_x71, _x72, _x73) {
+    return _ref38.apply(this, arguments);
   };
 }();
 
@@ -45178,55 +45267,55 @@ User.prototype.isRevoked = function () {
  * @async
  */
 User.prototype.verifyAllCertifications = function () {
-  var _ref39 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee36(primaryKey, keys) {
+  var _ref40 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee37(primaryKey, keys) {
     var date = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Date();
     var that, certifications;
-    return _regenerator2.default.wrap(function _callee36$(_context36) {
+    return _regenerator2.default.wrap(function _callee37$(_context37) {
       while (1) {
-        switch (_context36.prev = _context36.next) {
+        switch (_context37.prev = _context37.next) {
           case 0:
             that = this;
             certifications = this.selfCertifications.concat(this.otherCertifications);
-            return _context36.abrupt('return', _promise2.default.all(certifications.map(function () {
-              var _ref40 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee35(certification) {
+            return _context37.abrupt('return', _promise2.default.all(certifications.map(function () {
+              var _ref41 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee36(certification) {
                 var status;
-                return _regenerator2.default.wrap(function _callee35$(_context35) {
+                return _regenerator2.default.wrap(function _callee36$(_context36) {
                   while (1) {
-                    switch (_context35.prev = _context35.next) {
+                    switch (_context36.prev = _context36.next) {
                       case 0:
-                        _context35.next = 2;
+                        _context36.next = 2;
                         return that.verifyCertificate(primaryKey, certification, keys, date);
 
                       case 2:
-                        status = _context35.sent;
-                        return _context35.abrupt('return', {
+                        status = _context36.sent;
+                        return _context36.abrupt('return', {
                           keyid: certification.issuerKeyId,
                           valid: status === undefined ? null : status === _enums2.default.keyStatus.valid
                         });
 
                       case 4:
                       case 'end':
-                        return _context35.stop();
+                        return _context36.stop();
                     }
                   }
-                }, _callee35, this);
+                }, _callee36, this);
               }));
 
-              return function (_x78) {
-                return _ref40.apply(this, arguments);
+              return function (_x79) {
+                return _ref41.apply(this, arguments);
               };
             }())));
 
           case 3:
           case 'end':
-            return _context36.stop();
+            return _context37.stop();
         }
       }
-    }, _callee36, this);
+    }, _callee37, this);
   }));
 
-  return function (_x75, _x76) {
-    return _ref39.apply(this, arguments);
+  return function (_x76, _x77) {
+    return _ref40.apply(this, arguments);
   };
 }();
 
@@ -45240,19 +45329,19 @@ User.prototype.verifyAllCertifications = function () {
  * @async
  */
 User.prototype.verify = function () {
-  var _ref41 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee38(primaryKey) {
+  var _ref42 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee39(primaryKey) {
     var date = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
     var that, dataToVerify, results;
-    return _regenerator2.default.wrap(function _callee38$(_context38) {
+    return _regenerator2.default.wrap(function _callee39$(_context39) {
       while (1) {
-        switch (_context38.prev = _context38.next) {
+        switch (_context39.prev = _context39.next) {
           case 0:
             if (this.selfCertifications.length) {
-              _context38.next = 2;
+              _context39.next = 2;
               break;
             }
 
-            return _context38.abrupt('return', _enums2.default.keyStatus.no_self_cert);
+            return _context39.abrupt('return', _enums2.default.keyStatus.no_self_cert);
 
           case 2:
             that = this;
@@ -45263,98 +45352,98 @@ User.prototype.verify = function () {
             };
             // TODO replace when Promise.some or Promise.any are implemented
 
-            _context38.t0 = [_enums2.default.keyStatus.invalid];
-            _context38.next = 7;
+            _context39.t0 = [_enums2.default.keyStatus.invalid];
+            _context39.next = 7;
             return _promise2.default.all(this.selfCertifications.map(function () {
-              var _ref42 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee37(selfCertification) {
-                return _regenerator2.default.wrap(function _callee37$(_context37) {
+              var _ref43 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee38(selfCertification) {
+                return _regenerator2.default.wrap(function _callee38$(_context38) {
                   while (1) {
-                    switch (_context37.prev = _context37.next) {
+                    switch (_context38.prev = _context38.next) {
                       case 0:
-                        _context37.t0 = selfCertification.revoked;
+                        _context38.t0 = selfCertification.revoked;
 
-                        if (_context37.t0) {
-                          _context37.next = 5;
+                        if (_context38.t0) {
+                          _context38.next = 5;
                           break;
                         }
 
-                        _context37.next = 4;
+                        _context38.next = 4;
                         return that.isRevoked(primaryKey, selfCertification, undefined, date);
 
                       case 4:
-                        _context37.t0 = _context37.sent;
+                        _context38.t0 = _context38.sent;
 
                       case 5:
-                        if (!_context37.t0) {
-                          _context37.next = 7;
+                        if (!_context38.t0) {
+                          _context38.next = 7;
                           break;
                         }
 
-                        return _context37.abrupt('return', _enums2.default.keyStatus.revoked);
+                        return _context38.abrupt('return', _enums2.default.keyStatus.revoked);
 
                       case 7:
-                        _context37.t1 = selfCertification.verified;
+                        _context38.t1 = selfCertification.verified;
 
-                        if (_context37.t1) {
-                          _context37.next = 12;
+                        if (_context38.t1) {
+                          _context38.next = 12;
                           break;
                         }
 
-                        _context37.next = 11;
+                        _context38.next = 11;
                         return selfCertification.verify(primaryKey, _enums2.default.signature.cert_generic, dataToVerify);
 
                       case 11:
-                        _context37.t1 = _context37.sent;
+                        _context38.t1 = _context38.sent;
 
                       case 12:
-                        if (_context37.t1) {
-                          _context37.next = 14;
+                        if (_context38.t1) {
+                          _context38.next = 14;
                           break;
                         }
 
-                        return _context37.abrupt('return', _enums2.default.keyStatus.invalid);
+                        return _context38.abrupt('return', _enums2.default.keyStatus.invalid);
 
                       case 14:
                         if (!selfCertification.isExpired(date)) {
-                          _context37.next = 16;
+                          _context38.next = 16;
                           break;
                         }
 
-                        return _context37.abrupt('return', _enums2.default.keyStatus.expired);
+                        return _context38.abrupt('return', _enums2.default.keyStatus.expired);
 
                       case 16:
-                        return _context37.abrupt('return', _enums2.default.keyStatus.valid);
+                        return _context38.abrupt('return', _enums2.default.keyStatus.valid);
 
                       case 17:
                       case 'end':
-                        return _context37.stop();
+                        return _context38.stop();
                     }
                   }
-                }, _callee37, this);
+                }, _callee38, this);
               }));
 
-              return function (_x81) {
-                return _ref42.apply(this, arguments);
+              return function (_x82) {
+                return _ref43.apply(this, arguments);
               };
             }()));
 
           case 7:
-            _context38.t1 = _context38.sent;
-            results = _context38.t0.concat.call(_context38.t0, _context38.t1);
-            return _context38.abrupt('return', results.some(function (status) {
+            _context39.t1 = _context39.sent;
+            results = _context39.t0.concat.call(_context39.t0, _context39.t1);
+            return _context39.abrupt('return', results.some(function (status) {
               return status === _enums2.default.keyStatus.valid;
             }) ? _enums2.default.keyStatus.valid : results.pop());
 
           case 10:
           case 'end':
-            return _context38.stop();
+            return _context39.stop();
         }
       }
-    }, _callee38, this);
+    }, _callee39, this);
   }));
 
-  return function (_x79) {
-    return _ref41.apply(this, arguments);
+  return function (_x80) {
+    return _ref42.apply(this, arguments);
   };
 }();
 
@@ -45367,11 +45456,11 @@ User.prototype.verify = function () {
  * @async
  */
 User.prototype.update = function () {
-  var _ref43 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee40(user, primaryKey) {
+  var _ref44 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee41(user, primaryKey) {
     var dataToVerify;
-    return _regenerator2.default.wrap(function _callee40$(_context40) {
+    return _regenerator2.default.wrap(function _callee41$(_context41) {
       while (1) {
-        switch (_context40.prev = _context40.next) {
+        switch (_context41.prev = _context41.next) {
           case 0:
             dataToVerify = {
               userId: this.userId,
@@ -45380,48 +45469,48 @@ User.prototype.update = function () {
             };
             // self signatures
 
-            _context40.next = 3;
+            _context41.next = 3;
             return mergeSignatures(user, this, 'selfCertifications', function () {
-              var _ref44 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee39(srcSelfSig) {
-                return _regenerator2.default.wrap(function _callee39$(_context39) {
+              var _ref45 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee40(srcSelfSig) {
+                return _regenerator2.default.wrap(function _callee40$(_context40) {
                   while (1) {
-                    switch (_context39.prev = _context39.next) {
+                    switch (_context40.prev = _context40.next) {
                       case 0:
-                        return _context39.abrupt('return', srcSelfSig.verified || srcSelfSig.verify(primaryKey, _enums2.default.signature.cert_generic, dataToVerify));
+                        return _context40.abrupt('return', srcSelfSig.verified || srcSelfSig.verify(primaryKey, _enums2.default.signature.cert_generic, dataToVerify));
 
                       case 1:
                       case 'end':
-                        return _context39.stop();
+                        return _context40.stop();
                     }
                   }
-                }, _callee39, this);
+                }, _callee40, this);
               }));
 
-              return function (_x84) {
-                return _ref44.apply(this, arguments);
+              return function (_x85) {
+                return _ref45.apply(this, arguments);
               };
             }());
 
           case 3:
-            _context40.next = 5;
+            _context41.next = 5;
             return mergeSignatures(user, this, 'otherCertifications');
 
           case 5:
-            _context40.next = 7;
+            _context41.next = 7;
             return mergeSignatures(user, this, 'revocationSignatures', function (srcRevSig) {
               return isDataRevoked(primaryKey, _enums2.default.signature.cert_revocation, dataToVerify, [srcRevSig]);
             });
 
           case 7:
           case 'end':
-            return _context40.stop();
+            return _context41.stop();
         }
       }
-    }, _callee40, this);
+    }, _callee41, this);
   }));
 
-  return function (_x82, _x83) {
-    return _ref43.apply(this, arguments);
+  return function (_x83, _x84) {
+    return _ref44.apply(this, arguments);
   };
 }();
 
@@ -45470,27 +45559,27 @@ SubKey.prototype.toPacketlist = function () {
  * @async
  */
 SubKey.prototype.isRevoked = function () {
-  var _ref45 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee41(primaryKey, signature, key) {
+  var _ref46 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee42(primaryKey, signature, key) {
     var date = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : new Date();
-    return _regenerator2.default.wrap(function _callee41$(_context41) {
+    return _regenerator2.default.wrap(function _callee42$(_context42) {
       while (1) {
-        switch (_context41.prev = _context41.next) {
+        switch (_context42.prev = _context42.next) {
           case 0:
-            return _context41.abrupt('return', isDataRevoked(primaryKey, _enums2.default.signature.subkey_revocation, {
+            return _context42.abrupt('return', isDataRevoked(primaryKey, _enums2.default.signature.subkey_revocation, {
               key: primaryKey,
               bind: this.keyPacket
             }, this.revocationSignatures, signature, key, date));
 
           case 1:
           case 'end':
-            return _context41.stop();
+            return _context42.stop();
         }
       }
-    }, _callee41, this);
+    }, _callee42, this);
   }));
 
-  return function (_x85, _x86, _x87) {
-    return _ref45.apply(this, arguments);
+  return function (_x86, _x87, _x88) {
+    return _ref46.apply(this, arguments);
   };
 }();
 
@@ -45504,73 +45593,73 @@ SubKey.prototype.isRevoked = function () {
  * @async
  */
 SubKey.prototype.verify = function () {
-  var _ref46 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee42(primaryKey) {
+  var _ref47 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee43(primaryKey) {
     var date = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
     var that, dataToVerify, bindingSignature;
-    return _regenerator2.default.wrap(function _callee42$(_context42) {
+    return _regenerator2.default.wrap(function _callee43$(_context43) {
       while (1) {
-        switch (_context42.prev = _context42.next) {
+        switch (_context43.prev = _context43.next) {
           case 0:
             that = this;
             dataToVerify = { key: primaryKey, bind: this.keyPacket };
             // check subkey binding signatures
 
-            _context42.next = 4;
+            _context43.next = 4;
             return getLatestValidSignature(this.bindingSignatures, primaryKey, _enums2.default.signature.subkey_binding, dataToVerify, date);
 
           case 4:
-            bindingSignature = _context42.sent;
+            bindingSignature = _context43.sent;
 
             if (bindingSignature) {
-              _context42.next = 7;
+              _context43.next = 7;
               break;
             }
 
-            return _context42.abrupt('return', _enums2.default.keyStatus.invalid);
+            return _context43.abrupt('return', _enums2.default.keyStatus.invalid);
 
           case 7:
-            _context42.t0 = bindingSignature.revoked;
+            _context43.t0 = bindingSignature.revoked;
 
-            if (_context42.t0) {
-              _context42.next = 12;
+            if (_context43.t0) {
+              _context43.next = 12;
               break;
             }
 
-            _context42.next = 11;
+            _context43.next = 11;
             return that.isRevoked(primaryKey, bindingSignature, null, date);
 
           case 11:
-            _context42.t0 = _context42.sent;
+            _context43.t0 = _context43.sent;
 
           case 12:
-            if (!_context42.t0) {
-              _context42.next = 14;
+            if (!_context43.t0) {
+              _context43.next = 14;
               break;
             }
 
-            return _context42.abrupt('return', _enums2.default.keyStatus.revoked);
+            return _context43.abrupt('return', _enums2.default.keyStatus.revoked);
 
           case 14:
             if (!isDataExpired(this.keyPacket, bindingSignature, date)) {
-              _context42.next = 16;
+              _context43.next = 16;
               break;
             }
 
-            return _context42.abrupt('return', _enums2.default.keyStatus.expired);
+            return _context43.abrupt('return', _enums2.default.keyStatus.expired);
 
           case 16:
-            return _context42.abrupt('return', _enums2.default.keyStatus.valid);
+            return _context43.abrupt('return', _enums2.default.keyStatus.valid);
 
           case 17:
           case 'end':
-            return _context42.stop();
+            return _context43.stop();
         }
       }
-    }, _callee42, this);
+    }, _callee43, this);
   }));
 
-  return function (_x89) {
-    return _ref46.apply(this, arguments);
+  return function (_x90) {
+    return _ref47.apply(this, arguments);
   };
 }();
 
@@ -45584,42 +45673,42 @@ SubKey.prototype.verify = function () {
  * @async
  */
 SubKey.prototype.getExpirationTime = function () {
-  var _ref47 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee43(primaryKey) {
+  var _ref48 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee44(primaryKey) {
     var date = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
     var dataToVerify, bindingSignature, keyExpiry, sigExpiry;
-    return _regenerator2.default.wrap(function _callee43$(_context43) {
+    return _regenerator2.default.wrap(function _callee44$(_context44) {
       while (1) {
-        switch (_context43.prev = _context43.next) {
+        switch (_context44.prev = _context44.next) {
           case 0:
             dataToVerify = { key: primaryKey, bind: this.keyPacket };
-            _context43.next = 3;
+            _context44.next = 3;
             return getLatestValidSignature(this.bindingSignatures, primaryKey, _enums2.default.signature.subkey_binding, dataToVerify, date);
 
           case 3:
-            bindingSignature = _context43.sent;
+            bindingSignature = _context44.sent;
 
             if (bindingSignature) {
-              _context43.next = 6;
+              _context44.next = 6;
               break;
             }
 
-            return _context43.abrupt('return', null);
+            return _context44.abrupt('return', null);
 
           case 6:
             keyExpiry = getExpirationTime(this.keyPacket, bindingSignature);
             sigExpiry = bindingSignature.getExpirationTime();
-            return _context43.abrupt('return', keyExpiry < sigExpiry ? keyExpiry : sigExpiry);
+            return _context44.abrupt('return', keyExpiry < sigExpiry ? keyExpiry : sigExpiry);
 
           case 9:
           case 'end':
-            return _context43.stop();
+            return _context44.stop();
         }
       }
-    }, _callee43, this);
+    }, _callee44, this);
   }));
 
-  return function (_x91) {
-    return _ref47.apply(this, arguments);
+  return function (_x92) {
+    return _ref48.apply(this, arguments);
   };
 }();
 
@@ -45632,29 +45721,29 @@ SubKey.prototype.getExpirationTime = function () {
  * @async
  */
 SubKey.prototype.update = function () {
-  var _ref48 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee45(subKey, primaryKey) {
+  var _ref49 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee46(subKey, primaryKey) {
     var that, dataToVerify;
-    return _regenerator2.default.wrap(function _callee45$(_context45) {
+    return _regenerator2.default.wrap(function _callee46$(_context46) {
       while (1) {
-        switch (_context45.prev = _context45.next) {
+        switch (_context46.prev = _context46.next) {
           case 0:
-            _context45.next = 2;
+            _context46.next = 2;
             return subKey.verify(primaryKey);
 
           case 2:
-            _context45.t0 = _context45.sent;
-            _context45.t1 = _enums2.default.keyStatus.invalid;
+            _context46.t0 = _context46.sent;
+            _context46.t1 = _enums2.default.keyStatus.invalid;
 
-            if (!(_context45.t0 === _context45.t1)) {
-              _context45.next = 6;
+            if (!(_context46.t0 === _context46.t1)) {
+              _context46.next = 6;
               break;
             }
 
-            return _context45.abrupt('return');
+            return _context46.abrupt('return');
 
           case 6:
             if (this.hasSameFingerprintAs(subKey)) {
-              _context45.next = 8;
+              _context46.next = 8;
               break;
             }
 
@@ -45668,91 +45757,91 @@ SubKey.prototype.update = function () {
             // update missing binding signatures
             that = this;
             dataToVerify = { key: primaryKey, bind: that.keyPacket };
-            _context45.next = 13;
+            _context46.next = 13;
             return mergeSignatures(subKey, this, 'bindingSignatures', function () {
-              var _ref49 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee44(srcBindSig) {
+              var _ref50 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee45(srcBindSig) {
                 var i;
-                return _regenerator2.default.wrap(function _callee44$(_context44) {
+                return _regenerator2.default.wrap(function _callee45$(_context45) {
                   while (1) {
-                    switch (_context44.prev = _context44.next) {
+                    switch (_context45.prev = _context45.next) {
                       case 0:
-                        _context44.t0 = srcBindSig.verified;
+                        _context45.t0 = srcBindSig.verified;
 
-                        if (_context44.t0) {
-                          _context44.next = 5;
+                        if (_context45.t0) {
+                          _context45.next = 5;
                           break;
                         }
 
-                        _context44.next = 4;
+                        _context45.next = 4;
                         return srcBindSig.verify(primaryKey, _enums2.default.signature.subkey_binding, dataToVerify);
 
                       case 4:
-                        _context44.t0 = _context44.sent;
+                        _context45.t0 = _context45.sent;
 
                       case 5:
-                        if (_context44.t0) {
-                          _context44.next = 7;
+                        if (_context45.t0) {
+                          _context45.next = 7;
                           break;
                         }
 
-                        return _context44.abrupt('return', false);
+                        return _context45.abrupt('return', false);
 
                       case 7:
                         i = 0;
 
                       case 8:
                         if (!(i < that.bindingSignatures.length)) {
-                          _context44.next = 15;
+                          _context45.next = 15;
                           break;
                         }
 
                         if (!that.bindingSignatures[i].issuerKeyId.equals(srcBindSig.issuerKeyId)) {
-                          _context44.next = 12;
+                          _context45.next = 12;
                           break;
                         }
 
                         if (srcBindSig.created > that.bindingSignatures[i].created) {
                           that.bindingSignatures[i] = srcBindSig;
                         }
-                        return _context44.abrupt('return', false);
+                        return _context45.abrupt('return', false);
 
                       case 12:
                         i++;
-                        _context44.next = 8;
+                        _context45.next = 8;
                         break;
 
                       case 15:
-                        return _context44.abrupt('return', true);
+                        return _context45.abrupt('return', true);
 
                       case 16:
                       case 'end':
-                        return _context44.stop();
+                        return _context45.stop();
                     }
                   }
-                }, _callee44, this);
+                }, _callee45, this);
               }));
 
-              return function (_x95) {
-                return _ref49.apply(this, arguments);
+              return function (_x96) {
+                return _ref50.apply(this, arguments);
               };
             }());
 
           case 13:
-            _context45.next = 15;
+            _context46.next = 15;
             return mergeSignatures(subKey, this, 'revocationSignatures', function (srcRevSig) {
               return isDataRevoked(primaryKey, _enums2.default.signature.subkey_revocation, dataToVerify, [srcRevSig]);
             });
 
           case 15:
           case 'end':
-            return _context45.stop();
+            return _context46.stop();
         }
       }
-    }, _callee45, this);
+    }, _callee46, this);
   }));
 
-  return function (_x93, _x94) {
-    return _ref48.apply(this, arguments);
+  return function (_x94, _x95) {
+    return _ref49.apply(this, arguments);
   };
 }();
 
@@ -45767,23 +45856,23 @@ SubKey.prototype.update = function () {
  * @async
  */
 SubKey.prototype.revoke = function () {
-  var _ref50 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee46(primaryKey) {
-    var _ref51 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-        _ref51$flag = _ref51.flag,
-        reasonForRevocationFlag = _ref51$flag === undefined ? _enums2.default.reasonForRevocation.no_reason : _ref51$flag,
-        _ref51$string = _ref51.string,
-        reasonForRevocationString = _ref51$string === undefined ? '' : _ref51$string;
+  var _ref51 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee47(primaryKey) {
+    var _ref52 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+        _ref52$flag = _ref52.flag,
+        reasonForRevocationFlag = _ref52$flag === undefined ? _enums2.default.reasonForRevocation.no_reason : _ref52$flag,
+        _ref52$string = _ref52.string,
+        reasonForRevocationString = _ref52$string === undefined ? '' : _ref52$string;
 
     var date = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Date();
     var dataToSign, subKey;
-    return _regenerator2.default.wrap(function _callee46$(_context46) {
+    return _regenerator2.default.wrap(function _callee47$(_context47) {
       while (1) {
-        switch (_context46.prev = _context46.next) {
+        switch (_context47.prev = _context47.next) {
           case 0:
             dataToSign = { key: primaryKey, bind: this.keyPacket };
             subKey = new SubKey(this.keyPacket);
-            _context46.t0 = subKey.revocationSignatures;
-            _context46.next = 5;
+            _context47.t0 = subKey.revocationSignatures;
+            _context47.next = 5;
             return createSignaturePacket(dataToSign, null, primaryKey, {
               signatureType: _enums2.default.signature.subkey_revocation,
               reasonForRevocationFlag: _enums2.default.write(_enums2.default.reasonForRevocation, reasonForRevocationFlag),
@@ -45791,26 +45880,26 @@ SubKey.prototype.revoke = function () {
             }, date);
 
           case 5:
-            _context46.t1 = _context46.sent;
+            _context47.t1 = _context47.sent;
 
-            _context46.t0.push.call(_context46.t0, _context46.t1);
+            _context47.t0.push.call(_context47.t0, _context47.t1);
 
-            _context46.next = 9;
+            _context47.next = 9;
             return subKey.update(this, primaryKey);
 
           case 9:
-            return _context46.abrupt('return', subKey);
+            return _context47.abrupt('return', subKey);
 
           case 10:
           case 'end':
-            return _context46.stop();
+            return _context47.stop();
         }
       }
-    }, _callee46, this);
+    }, _callee47, this);
   }));
 
-  return function (_x96) {
-    return _ref50.apply(this, arguments);
+  return function (_x97) {
+    return _ref51.apply(this, arguments);
   };
 }();
 
@@ -45823,6 +45912,39 @@ SubKey.prototype.revoke = function () {
 Key.prototype.hasSameFingerprintAs = SubKey.prototype.hasSameFingerprintAs = function (other) {
   return this.keyPacket.hasSameFingerprintAs(other.keyPacket || other);
 };
+
+function sanitizeKeyOptions(options) {
+  var subkeyDefaults = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  options.curve = options.curve || subkeyDefaults.curve;
+  options.rsaBits = options.rsaBits || subkeyDefaults.rsaBits;
+  options.keyExpirationTime = options.keyExpirationTime !== undefined ? options.keyExpirationTime : subkeyDefaults.keyExpirationTime;
+  options.passphrase = _util2.default.isString(options.passphrase) ? options.passphrase : subkeyDefaults.passphrase;
+  options.date = options.date || subkeyDefaults.date;
+
+  options.sign = options.sign || false;
+
+  if (options.curve) {
+    try {
+      options.curve = _enums2.default.write(_enums2.default.curve, options.curve);
+    } catch (e) {
+      throw new Error('Not valid curve.');
+    }
+    if (options.curve === _enums2.default.curve.ed25519 || options.curve === _enums2.default.curve.curve25519) {
+      options.curve = options.sign ? _enums2.default.curve.ed25519 : _enums2.default.curve.curve25519;
+    }
+    if (options.sign) {
+      options.algorithm = options.curve === _enums2.default.curve.ed25519 ? _enums2.default.publicKey.eddsa : _enums2.default.publicKey.ecdsa;
+    } else {
+      options.algorithm = _enums2.default.publicKey.ecdh;
+    }
+  } else if (options.rsaBits) {
+    options.algorithm = _enums2.default.publicKey.rsa_encrypt_sign;
+  } else {
+    throw new Error('Unrecognized key type');
+  }
+  return options;
+}
 
 function isDataExpired(keyPacket, signature) {
   var date = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : new Date();
@@ -48866,7 +48988,7 @@ function destroyWorker() {
  * Generates a new OpenPGP key pair. Supports RSA and ECC keys. Primary and subkey will be of same type.
  * @param  {Array<Object>} userIds   array of user IDs e.g. [{ name:'Phil Zimmermann', email:'phil@openpgp.org' }]
  * @param  {String} passphrase       (optional) The passphrase used to encrypt the resulting private key
- * @param  {Number} numBits          (optional) number of bits for RSA keys: 2048 or 4096.
+ * @param  {Number} rsaBits          (optional) number of bits for RSA keys: 2048 or 4096.
  * @param  {Number} keyExpirationTime (optional) The number of seconds after the key creation time that the key expires
  * @param  {String} curve            (optional) elliptic curve for ECC keys:
  *                                              curve25519, p256, p384, p521, secp256k1,
@@ -48889,6 +49011,8 @@ function generateKey(_ref3) {
       passphrase = _ref3$passphrase === undefined ? "" : _ref3$passphrase,
       _ref3$numBits = _ref3.numBits,
       numBits = _ref3$numBits === undefined ? 2048 : _ref3$numBits,
+      _ref3$rsaBits = _ref3.rsaBits,
+      rsaBits = _ref3$rsaBits === undefined ? numBits : _ref3$rsaBits,
       _ref3$keyExpirationTi = _ref3.keyExpirationTime,
       keyExpirationTime = _ref3$keyExpirationTi === undefined ? 0 : _ref3$keyExpirationTi,
       _ref3$curve = _ref3.curve,
@@ -48899,9 +49023,9 @@ function generateKey(_ref3) {
       subkeys = _ref3$subkeys === undefined ? [{}] : _ref3$subkeys;
 
   userIds = toArray(userIds);
-  var options = { userIds: userIds, passphrase: passphrase, numBits: numBits, keyExpirationTime: keyExpirationTime, curve: curve, date: date, subkeys: subkeys };
-  if (_util2.default.getWebCryptoAll() && numBits < 2048) {
-    throw new Error('numBits should be 2048 or 4096, found: ' + numBits);
+  var options = { userIds: userIds, passphrase: passphrase, rsaBits: rsaBits, keyExpirationTime: keyExpirationTime, curve: curve, date: date, subkeys: subkeys };
+  if (_util2.default.getWebCryptoAll() && rsaBits < 2048) {
+    throw new Error('rsaBits should be 2048 or 4096, found: ' + rsaBits);
   }
 
   if (!_util2.default.getWebCryptoAll() && asyncProxy) {
@@ -52521,13 +52645,14 @@ PublicKey.prototype.hasSameFingerprintAs = function (other) {
 
 /**
  * Returns algorithm information
- * @returns {Object} An object of the form {algorithm: String, bits:int, curve:String}
+ * @returns {Object} An object of the form {algorithm: String, rsaBits:int, curve:String}
  */
 PublicKey.prototype.getAlgorithmInfo = function () {
   var result = {};
   result.algorithm = this.algorithm;
   if (this.params[0] instanceof _mpi2.default) {
-    result.bits = this.params[0].byteLength() * 8;
+    result.rsaBits = this.params[0].byteLength() * 8;
+    result.bits = result.rsaBits; // Deprecated.
   } else {
     result.curve = this.params[0].getName();
   }
@@ -53887,7 +54012,7 @@ Signature.prototype.sign = function () {
             }
 
             this.signature = _webStreamTools2.default.fromAsync(signed);
-            _context2.next = 23;
+            _context2.next = 24;
             break;
 
           case 20:
@@ -53897,13 +54022,14 @@ Signature.prototype.sign = function () {
           case 22:
             this.signature = _context2.sent;
 
-          case 23:
 
             // Store the fact that this signature is valid, e.g. for when we call `await
-            // getLatestValidSignature(this.revocationSignatures, key, data)` later. Note
-            // that this only holds up if the key and data passed to verify are the same
-            // as the ones passed to sign.
+            // getLatestValidSignature(this.revocationSignatures, key, data)` later.
+            // Note that this only holds up if the key and data passed to verify are the
+            // same as the ones passed to sign.
             this.verified = true;
+
+          case 24:
             return _context2.abrupt('return', true);
 
           case 25:
