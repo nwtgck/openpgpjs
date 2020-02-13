@@ -54,7 +54,7 @@
     "grunt": "^1.0.3",
     "grunt-browserify": "^5.3.0",
     "grunt-contrib-clean": "~1.1.0",
-    "grunt-contrib-connect": "~1.0.2",
+    "grunt-contrib-connect": "~2.1.0",
     "grunt-contrib-copy": "~1.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-header": "^1.1.0",
