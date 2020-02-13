@@ -4350,12 +4350,12 @@
       }
     },
     "grunt-terser": {
-      "version": "0.1.0",
-      "resolved": "https://registry.npmjs.org/grunt-terser/-/grunt-terser-0.1.0.tgz",
-      "integrity": "sha1-l5pXHR7ZdkdzgZ2w9X3Ua8ipxdU=",
+      "version": "1.0.0",
+      "resolved": "https://registry.npmjs.org/grunt-terser/-/grunt-terser-1.0.0.tgz",
+      "integrity": "sha512-8MfNU3cVP4UWZLlIjJMUpk3NWIEmaD+CwewhDpUTiPaS49EkBiSWCmGAihqWxBKbiOC3KePPXMmB/yiaVNqW2w==",
       "dev": true,
       "requires": {
-        "terser": "^3.8.0"
+        "terser": "^4.3.9"
       }
     },
     "grunt-text-replace": {
@@ -7499,20 +7499,20 @@
       "dev": true
     },
     "terser": {
-      "version": "3.14.1",
-      "resolved": "https://registry.npmjs.org/terser/-/terser-3.14.1.tgz",
-      "integrity": "sha512-NSo3E99QDbYSMeJaEk9YW2lTg3qS9V0aKGlb+PlOrei1X02r1wSBHCNX/O+yeTRFSWPKPIGj6MqvvdqV4rnVGw==",
+      "version": "4.6.3",
+      "resolved": "https://registry.npmjs.org/terser/-/terser-4.6.3.tgz",
+      "integrity": "sha512-Lw+ieAXmY69d09IIc/yqeBqXpEQIpDGZqT34ui1QWXIUpR2RjbqEkT8X7Lgex19hslSqcWM5iMN2kM11eMsESQ==",
       "dev": true,
       "requires": {
-        "commander": "~2.17.1",
+        "commander": "^2.20.0",
         "source-map": "~0.6.1",
-        "source-map-support": "~0.5.6"
+        "source-map-support": "~0.5.12"
       },
       "dependencies": {
         "commander": {
-          "version": "2.17.1",
-          "resolved": "https://registry.npmjs.org/commander/-/commander-2.17.1.tgz",
-          "integrity": "sha512-wPMUt6FnH2yzG95SA6mzjQOEKUU3aLaDEmzs1ti+1E9h+CsrZghRlqEM/EJ4KscsQVG8uNN4uVreUeT8+drlgg==",
+          "version": "2.20.3",
+          "resolved": "https://registry.npmjs.org/commander/-/commander-2.20.3.tgz",
+          "integrity": "sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==",
           "dev": true
         },
         "source-map": {
@@ -7522,9 +7522,9 @@
           "dev": true
         },
         "source-map-support": {
-          "version": "0.5.10",
-          "resolved": "https://registry.npmjs.org/source-map-support/-/source-map-support-0.5.10.tgz",
-          "integrity": "sha512-YfQ3tQFTK/yzlGJuX8pTwa4tifQj4QS2Mj7UegOu8jAz59MqIiMGPXxQhVQiIMNzayuUSF/jEuVnfFF5JqybmQ==",
+          "version": "0.5.16",
+          "resolved": "https://registry.npmjs.org/source-map-support/-/source-map-support-0.5.16.tgz",
+          "integrity": "sha512-efyLRJDr68D9hBBNIPWFjhpFzURh+KJykQwvMyW5UiZzYwoF6l4YMMDIJJEyFWxWCqfyxLzz6tSfUFR+kXXsVQ==",
           "dev": true,
           "requires": {
             "buffer-from": "^1.0.0",
