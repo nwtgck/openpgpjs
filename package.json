@@ -42,7 +42,7 @@
     "babel-preset-es2015-mod": "^6.6.0",
     "babel-preset-es3": "^1.0.1",
     "babelify": "^8.0.0",
-    "browserify-derequire": "^0.9.4",
+    "browserify-derequire": "^1.0.1",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "core-js": "^2.5.3",
