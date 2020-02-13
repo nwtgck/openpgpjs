@@ -211,9 +211,9 @@
       }
     },
     "@mattiasbuelens/web-streams-polyfill": {
-      "version": "0.3.1",
-      "resolved": "https://registry.npmjs.org/@mattiasbuelens/web-streams-polyfill/-/web-streams-polyfill-0.3.1.tgz",
-      "integrity": "sha512-IW+tCurEH2NL2tA3KKFAMXa90WWmTJMZksnQWMABe3bMijV7hEiOLthy4tKGTnUTV8qVf8WTCApiGmKb75Bxkg==",
+      "version": "0.3.2",
+      "resolved": "https://registry.npmjs.org/@mattiasbuelens/web-streams-polyfill/-/web-streams-polyfill-0.3.2.tgz",
+      "integrity": "sha512-ANZvP8lC9IXiaPM3rwM8BGMbFIZbbj0goZT/xP2IA95UIZjEToyHXT/k8G0MmSAnxKRMh5E6oLVE6jmOt5zZ/g==",
       "dev": true
     },
     "@sinonjs/formatio": {
